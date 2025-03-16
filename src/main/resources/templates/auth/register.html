@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base}">
+<body>
+<div layout:fragment="content">
+    <h2>Register</h2>
+    <form method="post" th:object="${registerDto}" action="/register">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+        <!-- Champ Pseudo -->
+        <div class="mb-3">
+            <label class="form-label">Pseudo</label>
+            <input class="form-control" th:field="*{pseudo}" placeholder="Pseudo" required />
+        </div>
+
+        <!-- Champ First Name -->
+        <div class="mb-3">
+            <label class="form-label">Prénom</label>
+            <input class="form-control" th:field="*{firstName}" placeholder="Prénom" required />
+        </div>
+
+        <!-- Champ Last Name -->
+        <div class="mb-3">
+            <label class="form-label">Nom</label>
+            <input class="form-control" th:field="*{lastName}" placeholder="Nom" required />
+        </div>
+
+        <!-- Champ Email avec vérification dynamique -->
+        <div class="mb-3" id="email-container">
+            <label class="form-label">Email</label>
+            <input class="form-control" th:field="*{email}" placeholder="Email" required id="email-input"/>
+            <p id="email-dynamic-error" class="text-danger" style="display:none;">Adresse mail déjà utilisée, connectez-vous.</p>
+        </div>
+
+        <!-- Champ Phone -->
+        <div class="mb-3">
+            <label class="form-label">Téléphone</label>
+            <input class="form-control" th:field="*{phone}" placeholder="Téléphone" />
+        </div>
+
+        <!-- Champ Address -->
+        <div class="mb-3">
+            <label class="form-label">Adresse</label>
+            <input class="form-control" th:field="*{address}" placeholder="Adresse" />
+        </div>
+
+        <!-- Champ Password avec instructions et vérification dynamique -->
+        <div class="mb-3">
+            <label class="form-label">Mot de passe</label>
+            <input class="form-control" th:field="*{password}" type="password" placeholder="Mot de passe" required id="password-input" />
+            <small id="passwordHelp" class="form-text text-muted">
+                Le mot de passe doit contenir au moins une minuscule, une majuscule, un chiffre, un caractère spécial et plus de 6 caractères.
+            </small>
+            <p id="password-dynamic-error" class="text-danger" style="display:none;">
+                Le mot de passe ne respecte pas les critères.
+            </p>
+        </div>
+
+        <!-- Champ Confirm Password -->
+        <div class="mb-3">
+            <label class="form-label">Confirmer le mot de passe</label>
+            <input class="form-control" th:field="*{confirmPassword}" type="password" placeholder="Confirmer le mot de passe" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary">S'inscrire</button>
+    </form>
+</div>
+
+<!-- Modal de succès -->
+<div class="modal fade" id="modalSuccess" tabindex="-1" aria-labelledby="modalSuccessLabel" aria-hidden="true" th:if="${success}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalSuccessLabel">Succès !</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+            <div class="modal-body">
+                Inscription réussie !
+            </div>
+            <div class="modal-footer">
+                <a href="/login" class="btn btn-primary">Se connecter</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal d'erreur -->
+<div class="modal fade" id="modalError" tabindex="-1" aria-labelledby="modalErrorLabel" aria-hidden="true" th:if="${error}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalErrorLabel">Erreur</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+            <div class="modal-body">
+                <p th:utext="${error}">Erreur lors de l'inscription.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Script pour déclencher les modales une fois le DOM chargé -->
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+        var modalSuccessEl = document.getElementById("modalSuccess");
+        if(modalSuccessEl) {
+            var modalSuccess = new bootstrap.Modal(modalSuccessEl);
+            modalSuccess.show();
+        }
+        var modalErrorEl = document.getElementById("modalError");
+        if(modalErrorEl) {
+            var modalError = new bootstrap.Modal(modalErrorEl);
+            modalError.show();
+        }
+    });
+</script>
+</body>
+</html>
