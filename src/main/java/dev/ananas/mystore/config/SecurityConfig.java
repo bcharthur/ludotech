@@ -11,21 +11,31 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/").permitAll()
-                        .requestMatchers("/register").permitAll()
-                        .requestMatchers("/login").permitAll()
-                        .requestMatchers("/logout").permitAll()
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+                .authorizeHttpRequests(authorize -> authorize
+                        // Autoriser l'accès public aux URL suivantes
+                        .requestMatchers("/", "/index", "/register", "/login", "/css/**", "/js/**").permitAll()
+                        // Toutes les autres URL nécessitent une authentification
                         .anyRequest().authenticated()
                 )
-                .formLogin(form->form
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        // Rediriger vers la page d'accueil après une connexion réussie
                         .defaultSuccessUrl("/", true)
+                        .permitAll()
                 )
-                .logout(config -> config.logoutSuccessUrl("/"))
-                .build();
+                .logout(logout -> logout
+                        // Spécifier l'URL de déconnexion (le formulaire de logout pointe vers /logout)
+                        .logoutUrl("/logout")
+                        // Rediriger vers la page d'accueil après déconnexion
+                        .logoutSuccessUrl("/")
+                        .permitAll()
+                );
+
+        return http.build();
     }
 
     @Bean

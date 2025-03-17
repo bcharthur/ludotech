@@ -17,6 +17,6 @@ public class HomeController {
             String email = userDetails.getUsername();
             model.addAttribute("email", email);
         }
-        return "home/index";
+        return "index";
     }
 }
