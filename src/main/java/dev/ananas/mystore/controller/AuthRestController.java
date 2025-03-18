@@ -36,13 +36,13 @@ public class AuthRestController {
 
         // Vérification de la correspondance des mots de passe
         if (!registerDto.getPassword().equals(registerDto.getConfirmPassword())) {
-            result.addError(new FieldError("registerDto", "confirmPassword", "Passwords and Confirm Passwords do not match"));
+            result.addError(new FieldError("registerDto", "confirmPassword", "Les mots de passe et leur confirmation ne correspondent pas"));
         }
 
         // Vérification si l'email existe déjà
         AppUser appUser = repo.findByEmail(registerDto.getEmail());
         if (appUser != null) {
-            result.addError(new FieldError("registerDto", "email", "Email is already in use"));
+            result.addError(new FieldError("registerDto", "email", "Cet email est déjà utilisé"));
         }
 
         if (result.hasErrors()) {
@@ -79,7 +79,7 @@ public class AuthRestController {
             return ResponseEntity.ok(response);
 
         } catch (Exception ex) {
-            return ResponseEntity.badRequest().body(Map.of("error", ex.getMessage()));
+            return ResponseEntity.badRequest().body(Map.of("error", "Une erreur est survenue : " + ex.getMessage()));
         }
     }
 }
