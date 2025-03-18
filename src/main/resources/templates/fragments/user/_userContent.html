@@ -1,0 +1,8 @@
+<div th:fragment="userContent">
+    <div sec:authorize="!isAuthenticated()">
+        <h1 class="text-center">Hello, world!</h1>
+    </div>
+    <div sec:authorize="isAuthenticated()">
+        <h1 class="text-center">Hello, <span th:text="${email}">User</span>!</h1>
+    </div>
+</div>

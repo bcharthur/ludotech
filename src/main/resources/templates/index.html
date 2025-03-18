@@ -60,38 +60,11 @@
 <!-- Contenu principal -->
 <div class="container py-5">
     <!-- Pour l'administrateur -->
-    <div sec:authorize="hasRole('admin')">
-        <h1 class="text-center">Hello, Admin !</h1>
-        <div class="table-responsive">
-            <table id="usersTable" class="table table-striped table-bordered mt-4">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Address</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="user : ${users}">
-                    <td th:text="${user.id}">1</td>
-                    <td th:text="${user.firstName}">John</td>
-                    <td th:text="${user.lastName}">Doe</td>
-                    <td th:text="${user.email}">john@example.com</td>
-                    <td th:text="${user.phone}">1234567890</td>
-                    <td th:text="${user.address}">Address</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+    <div sec:authorize="hasRole('admin')" th:replace="fragments/admin/_adminContent :: adminContent"></div>
     <!-- Pour les autres utilisateurs -->
-    <div sec:authorize="!hasRole('admin')">
-        <h1 class="text-center">Hello, world!</h1>
-    </div>
+    <div sec:authorize="!hasRole('admin')" th:replace="fragments/user/_userContent :: userContent"></div>
 </div>
+
 
 <!-- Inclusion des fragments de modals -->
 <div th:replace="fragments/modals/_login :: loginModal"></div>
