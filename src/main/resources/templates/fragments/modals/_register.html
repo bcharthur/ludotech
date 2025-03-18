@@ -35,7 +35,20 @@
                     <div class="mb-3">
                         <label for="passwordReg" class="form-label">Password</label>
                         <input type="password" class="form-control" id="passwordReg" name="password" required>
+                        <!-- Progressbar Bootstrap pour la force du mot de passe -->
+                        <div class="progress mt-2">
+                            <div id="passwordProgress" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <!-- Bloc d'information sur les critères du mot de passe -->
+                        <div id="passwordMessage" class="mt-2" style="display:none;">
+                            <p id="letter" class="text-danger mb-1"><i class="fa-solid fa-xmark"></i> Une lettre <b>minuscule</b></p>
+                            <p id="capital" class="text-danger mb-1"><i class="fa-solid fa-xmark"></i> Une lettre <b>majuscule</b></p>
+                            <p id="number" class="text-danger mb-1"><i class="fa-solid fa-xmark"></i> Un <b>chiffre</b></p>
+                            <p id="length" class="text-danger mb-1"><i class="fa-solid fa-xmark"></i> Au moins <b>8 caractères</b></p>
+                        </div>
+
                     </div>
+
                     <div class="mb-3">
                         <label for="confirmPassword" class="form-label">Confirm Password</label>
                         <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
