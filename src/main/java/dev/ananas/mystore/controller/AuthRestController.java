@@ -5,6 +5,7 @@ import dev.ananas.mystore.models.RegisterDto;
 import dev.ananas.mystore.repository.AppUserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,10 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
@@ -27,6 +25,18 @@ public class AuthRestController {
 
     @Autowired
     private AppUserRepository repo;
+
+    @GetMapping("/check-email")
+    @ResponseBody
+    public ResponseEntity<?> checkEmail(@RequestParam("email") String email) {
+        AppUser user = repo.findByEmail(email);
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("error", "Cet email n'est pas enregistré"));
+        }
+        return ResponseEntity.ok().build();
+    }
+
 
     @PostMapping("/register")
     @ResponseBody
