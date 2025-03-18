@@ -3,7 +3,7 @@ $(document).ready(function () {
         $('#usersTable').DataTable({
             ajax: {
                 url: '/admin/datatable-json',
-                dataSrc: ''  // Puisque l'endpoint renvoie directement une liste d'objets
+                dataSrc: ''  // L'endpoint renvoie une liste d'objets
             },
             columns: [
                 { data: 'id' },
@@ -12,7 +12,14 @@ $(document).ready(function () {
                 { data: 'email' },
                 { data: 'phone' },
                 { data: 'address' }
-            ]
+            ],
+            language: {
+                url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fr-FR.json",
+                paginate: {
+                    previous: "",
+                    next: ""
+                }
+            }
         });
     }
 });

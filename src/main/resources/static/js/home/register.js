@@ -78,8 +78,7 @@ $(document).ready(function () {
         }
     }
 
-
-    // Votre code existant pour la soumission du formulaire
+    // Soumission du formulaire d'inscription
     $('#registerForm').on('submit', function (e) {
         e.preventDefault();
         $('#registerSpinner').removeClass('d-none');
@@ -115,7 +114,7 @@ $(document).ready(function () {
                         errorMsg += "<p>" + key + ": " + value + "</p>";
                     });
                 } else {
-                    errorMsg = "Registration failed due to unknown error.";
+                    errorMsg = "L'inscription a échoué pour une erreur inconnue.";
                 }
                 $('#register-alert-placeholder').html('<div class="alert alert-danger" role="alert">' + errorMsg + '</div>');
             }
