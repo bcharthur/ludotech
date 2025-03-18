@@ -204,97 +204,10 @@
 <script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 <!-- JS DataTables -->
 <script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-<script>
-    $(document).ready(function () {
-        // Initialisation du DataTable en mode AJAX pour le mode admin
-        if ($('#usersTable').length) {
-            $('#usersTable').DataTable({
-                ajax: {
-                    url: '/admin/datatable-json',
-                    dataSrc: ''  // Puisque l'endpoint renvoie directement une liste d'objets
-                },
-                columns: [
-                    { data: 'id' },
-                    { data: 'firstName' },
-                    { data: 'lastName' },
-                    { data: 'email' },
-                    { data: 'phone' },
-                    { data: 'address' }
-                ]
-            });
-        }
-
-        // Soumission du formulaire de connexion
-        $('#loginForm').on('submit', function (e) {
-            e.preventDefault();
-            $('#spinner').removeClass('d-none');
-            var csrfParameterName = $('#csrfToken').attr('name');
-            var csrfToken = $('#csrfToken').val();
-            $.ajax({
-                type: 'POST',
-                url: '/login',
-                data: {
-                    username: $('#email').val(),
-                    password: $('#password').val(),
-                    [csrfParameterName]: csrfToken
-                },
-                success: function (response) {
-                    $('#spinner').addClass('d-none');
-                    window.location.href = "/";
-                },
-                error: function (xhr) {
-                    $('#spinner').addClass('d-none');
-                    var msg = "Échec de la connexion : " +
-                        (xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : "Erreur inconnue");
-                    $('#alert-placeholder').html('<div class="alert alert-danger" role="alert">' + msg + '</div>');
-                }
-            });
-        });
-
-        // Soumission du formulaire d'inscription
-        $('#registerForm').on('submit', function (e) {
-            e.preventDefault();
-            $('#registerSpinner').removeClass('d-none');
-            var csrfParameterName = $('#registerCsrfToken').attr('name');
-            var csrfToken = $('#registerCsrfToken').val();
-            $.ajax({
-                type: 'POST',
-                url: '/register',
-                data: {
-                    firstName: $('#firstName').val(),
-                    lastName: $('#lastName').val(),
-                    email: $('#emailReg').val(),
-                    phone: $('#phone').val(),
-                    address: $('#address').val(),
-                    password: $('#passwordReg').val(),
-                    confirmPassword: $('#confirmPassword').val(),
-                    [csrfParameterName]: csrfToken
-                },
-                success: function (response) {
-                    $('#registerSpinner').addClass('d-none');
-                    var registerModalEl = document.getElementById('registerModal');
-                    var registerModal = bootstrap.Modal.getInstance(registerModalEl);
-                    registerModal.hide();
-                    var successModalEl = document.getElementById('registerSuccessModal');
-                    var successModal = new bootstrap.Modal(successModalEl);
-                    successModal.show();
-                },
-                error: function (xhr) {
-                    $('#registerSpinner').addClass('d-none');
-                    var errorMsg = "";
-                    if (xhr.responseJSON) {
-                        $.each(xhr.responseJSON, function (key, value) {
-                            errorMsg += "<p>" + key + ": " + value + "</p>";
-                        });
-                    } else {
-                        errorMsg = "Registration failed due to unknown error.";
-                    }
-                    $('#register-alert-placeholder').html('<div class="alert alert-danger" role="alert">' + errorMsg + '</div>');
-                }
-            });
-        });
-    });
-</script>
+<!-- Fichiers JS externes -->
+<script src="/js/home/datatable.js"></script>
+<script src="/js/home/login.js"></script>
+<script src="/js/home/register.js"></script>
 
 </body>
 </html>
