@@ -17,7 +17,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authorize -> authorize
                         // Autoriser l'accès public aux URL suivantes
-                        .requestMatchers("/", "/index", "/register", "/login", "/check-email", "/css/**", "/js/**").permitAll()
+                        .requestMatchers("/", "/index", "/register", "/login", "/check-email", "/check-password", "/css/**", "/js/**").permitAll()
                         // Toutes les autres URL nécessitent une authentification
                         .anyRequest().authenticated()
                 )
@@ -28,9 +28,7 @@ public class SecurityConfig {
                         .permitAll()
                 )
                 .logout(logout -> logout
-                        // Spécifier l'URL de déconnexion (le formulaire de logout pointe vers /logout)
                         .logoutUrl("/logout")
-                        // Rediriger vers la page d'accueil après déconnexion
                         .logoutSuccessUrl("/")
                         .permitAll()
                 );
@@ -43,4 +41,5 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 }
+
 
