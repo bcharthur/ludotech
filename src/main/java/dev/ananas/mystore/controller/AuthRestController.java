@@ -37,6 +37,25 @@ public class AuthRestController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/check-password")
+    @ResponseBody
+    public ResponseEntity<?> checkPassword(@RequestParam("email") String email,
+                                           @RequestParam("password") String password) {
+        AppUser user = repo.findByEmail(email);
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("error", "Cet email n'est pas enregistré"));
+        }
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        if (encoder.matches(password, user.getPassword())) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("error", "Mot de passe erroné"));
+        }
+    }
+
+
 
     @PostMapping("/register")
     @ResponseBody
