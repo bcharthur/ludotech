@@ -17,7 +17,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authorize -> authorize
                         // Autoriser l'accès public aux URL suivantes
-                        .requestMatchers("/", "/index", "/register", "/login", "/css/**", "/js/**").permitAll()
+                        .requestMatchers("/", "/index", "/register", "/login", "/check-email", "/css/**", "/js/**").permitAll()
                         // Toutes les autres URL nécessitent une authentification
                         .anyRequest().authenticated()
                 )
@@ -43,3 +43,4 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 }
+

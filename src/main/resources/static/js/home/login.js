@@ -1,4 +1,9 @@
 $(document).ready(function () {
+    // Quand la modal login est fermée, on efface le message d'erreur
+    $('#loginModal').on('hidden.bs.modal', function () {
+        $('#alert-placeholder').empty();
+    });
+
     $('#loginForm').on('submit', function (e) {
         e.preventDefault();
         $('#spinner').removeClass('d-none');
