@@ -1,4 +1,4 @@
-package dev.ananas.mystore.config;
+package dev.bcharthur.ludotech.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

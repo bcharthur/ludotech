@@ -1,5 +1,5 @@
 // LoginDto.java
-package dev.ananas.mystore.models;
+package dev.bcharthur.ludotech.models;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;

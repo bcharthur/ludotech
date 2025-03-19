@@ -17,7 +17,7 @@
 //
 //    @BeforeAll
 //    public static void initBeforeAll() {
-//        System.out.println("Début des tests AppUser");
+//        System.out.println("Début des tests Client");
 //    }
 //
 //    @BeforeEach
@@ -32,14 +32,14 @@
 //
 //    @AfterAll
 //    public static void afterAll() {
-//        System.out.println("Fin des tests AppUser");
+//        System.out.println("Fin des tests Client");
 //    }
 //
 //    @Test
-//    @DisplayName("Création d'un AppUser - cas positif")
+//    @DisplayName("Création d'un Client - cas positif")
 //    public void testCreationAppUser() {
 //        // Arrange
-//        AppUser user = new AppUser();
+//        Client user = new Client();
 //        user.setId(1);
 //        user.setFirstName("John");
 //        user.setLastName("Doe");
@@ -65,10 +65,10 @@
 //    }
 //
 //    @Test
-//    @DisplayName("Création d'un AppUser sans email")
+//    @DisplayName("Création d'un Client sans email")
 //    public void testCreationAppUserWithoutEmail() {
 //        // Arrange
-//        AppUser user = new AppUser();
+//        Client user = new Client();
 //        user.setId(2);
 //        user.setFirstName("Alice");
 //        user.setLastName("Smith");

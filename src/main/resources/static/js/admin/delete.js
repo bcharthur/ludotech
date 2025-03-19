@@ -13,7 +13,7 @@ $(document).ready(function() {
         if (!currentUserIdToDelete) return;
 
         $.ajax({
-            url: '/admin/user/' + currentUserIdToDelete,
+            url: '/admin/client/' + currentUserIdToDelete,
             type: 'DELETE',
             success: function(response) {
                 // Fermer la modal de confirmation de suppression

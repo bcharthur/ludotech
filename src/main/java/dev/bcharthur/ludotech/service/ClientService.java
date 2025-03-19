@@ -1,7 +1,7 @@
-package dev.ananas.mystore.service;
+package dev.bcharthur.ludotech.service;
 
-import dev.ananas.mystore.models.AppUser;
-import dev.ananas.mystore.repository.AppUserRepository;
+import dev.bcharthur.ludotech.models.Client;
+import dev.bcharthur.ludotech.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,17 +13,17 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class AppUserService implements UserDetailsService {
+public class ClientService implements UserDetailsService {
 
     @Autowired
-    private AppUserRepository repo;
+    private ClientRepository repo;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        AppUser appUser = repo.findByEmail(email);
+        Client appUser = repo.findByEmail(email);
 
         if (appUser == null) {
             throw new UsernameNotFoundException("User not found with email: " + email);
@@ -36,12 +36,12 @@ public class AppUserService implements UserDetailsService {
                 .build();
     }
 
-    public void save(AppUser user) {
+    public void save(Client user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         repo.save(user);
     }
 
-    public List<AppUser> getAllUsers() {
+    public List<Client> getAllUsers() {
         return repo.findAll();
     }
 }

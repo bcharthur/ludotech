@@ -3,7 +3,7 @@ $(document).ready(function() {
     $('#usersTable').on('click', '.btnEdit', function() {
         const userId = $(this).data('id');
         $.ajax({
-            url: '/admin/user/' + userId,
+            url: '/admin/client/' + userId,
             type: 'GET',
             success: function(user) {
                 // Remplir les champs de la modal
@@ -35,7 +35,7 @@ $(document).ready(function() {
         };
 
         $.ajax({
-            url: '/admin/user/edit',
+            url: '/admin/client/edit',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(userData),

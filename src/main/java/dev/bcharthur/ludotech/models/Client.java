@@ -1,12 +1,12 @@
-package dev.ananas.mystore.models;
+package dev.bcharthur.ludotech.models;
 
 import jakarta.persistence.*;
 
 import java.util.Date;
 
 @Entity
-@Table(name = "users")
-public class AppUser {
+@Table(name = "client")
+public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

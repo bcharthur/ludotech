@@ -1,13 +1,13 @@
-package dev.ananas.mystore;
+package dev.bcharthur.ludotech;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MyStoreApplication {
+public class LudotechApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(MyStoreApplication.class, args);
+        SpringApplication.run(LudotechApplication.class, args);
     }
 
 }

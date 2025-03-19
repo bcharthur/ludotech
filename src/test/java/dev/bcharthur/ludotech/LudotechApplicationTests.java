@@ -1,10 +1,10 @@
-package dev.ananas.mystore;
+package dev.bcharthur.ludotech;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MyStoreApplicationTests {
+class LudotechApplicationTests {
 
     @Test
     void contextLoads() {

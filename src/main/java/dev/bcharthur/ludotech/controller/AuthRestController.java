@@ -1,8 +1,8 @@
-package dev.ananas.mystore.controller;
+package dev.bcharthur.ludotech.controller;
 
-import dev.ananas.mystore.models.AppUser;
-import dev.ananas.mystore.models.RegisterDto;
-import dev.ananas.mystore.repository.AppUserRepository;
+import dev.bcharthur.ludotech.models.Client;
+import dev.bcharthur.ludotech.models.RegisterDto;
+import dev.bcharthur.ludotech.repository.ClientRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,12 +24,12 @@ import java.util.*;
 public class AuthRestController {
 
     @Autowired
-    private AppUserRepository repo;
+    private ClientRepository repo;
 
     @GetMapping("/check-email")
     @ResponseBody
     public ResponseEntity<?> checkEmail(@RequestParam("email") String email) {
-        AppUser user = repo.findByEmail(email);
+        Client user = repo.findByEmail(email);
         if (user == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(Map.of("error", "Cet email n'est pas enregistré"));
@@ -41,7 +41,7 @@ public class AuthRestController {
     @ResponseBody
     public ResponseEntity<?> checkPassword(@RequestParam("email") String email,
                                            @RequestParam("password") String password) {
-        AppUser user = repo.findByEmail(email);
+        Client user = repo.findByEmail(email);
         if (user == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(Map.of("error", "Cet email n'est pas enregistré"));
@@ -69,8 +69,8 @@ public class AuthRestController {
         }
 
         // Vérification si l'email existe déjà
-        AppUser appUser = repo.findByEmail(registerDto.getEmail());
-        if (appUser != null) {
+        Client client = repo.findByEmail(registerDto.getEmail());
+        if (client != null) {
             result.addError(new FieldError("registerDto", "email", "Cet email est déjà utilisé"));
         }
 
@@ -83,7 +83,7 @@ public class AuthRestController {
         try {
             // Création du compte
             BCryptPasswordEncoder bCryptEncoder = new BCryptPasswordEncoder();
-            AppUser newUser = new AppUser();
+            Client newUser = new Client();
             newUser.setFirstName(registerDto.getFirstName());
             newUser.setLastName(registerDto.getLastName());
             newUser.setEmail(registerDto.getEmail());
