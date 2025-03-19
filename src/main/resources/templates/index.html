@@ -69,7 +69,7 @@
 <!-- Contenu principal -->
 <div class="container py-5">
     <!-- Pour l'administrateur -->
-    <div sec:authorize="hasRole('admin')" th:replace="fragments/admin/_adminContent :: adminContent"></div>
+    <div sec:authorize="hasRole('admin')" th:replace="fragments/admin/user/_adminContent :: adminContent"></div>
     <!-- Pour les autres utilisateurs -->
     <div sec:authorize="!hasRole('admin')" th:replace="fragments/user/_userContent :: userContent"></div>
 </div>
@@ -80,9 +80,9 @@
 <div th:replace="fragments/modals/_succes :: registerSuccessModal"></div>
 
 <!-- Inclusion des modals d'édition et de suppression -->
-<div th:replace="fragments/admin/_editUser :: editUserModal"></div>
-<div th:replace="fragments/admin/_deleteUser :: deleteUserModal"></div>
-<div th:replace="fragments/admin/_successModal :: successModal"></div>
+<div th:replace="fragments/admin/user/_editUser :: editUserModal"></div>
+<div th:replace="fragments/admin/user/_deleteUser :: deleteUserModal"></div>
+<div th:replace="fragments/admin/user/_successModal :: successModal"></div>
 
 
 <!-- Scripts Bootstrap + jQuery -->
@@ -108,9 +108,10 @@
 </script>
 
 <!-- Vos scripts JS (maintenant protégés par CSRF) -->
-<script src="/js/admin/datatable.js"></script>
-<script src="/js/admin/delete.js"></script>
-<script src="/js/admin/edit.js"></script>
+<script src="/js/admin/user/datatable.js"></script>
+<script src="/js/admin/user/delete.js"></script>
+<script src="/js/admin/user/edit.js"></script>
+
 <script src="/js/home/login.js"></script>
 <script src="/js/home/register.js"></script>
 
