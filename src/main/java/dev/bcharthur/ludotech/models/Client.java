@@ -19,7 +19,11 @@ public class Client {
     private String email;
 
     private String phone;
-    private String address;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "adresse_id", referencedColumnName = "id")
+    private Adresse adresse;
+
     private String password;
     private String role;
     private Date createdAT;
@@ -66,12 +70,11 @@ public class Client {
         this.phone = phone;
     }
 
-    public String getAddress() {
-        return address;
+    public Adresse getAdresse() {
+        return adresse;
     }
-
-    public void setAddress(String address) {
-        this.address = address;
+    public void setAdresse(Adresse adresse) {
+        this.adresse = adresse;
     }
 
     public String getPassword() {

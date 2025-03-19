@@ -2,7 +2,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Éditer l'utilisateur</h5>
+                <h5 class="modal-title">Éditer le client</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
             </div>
             <div class="modal-body">
@@ -24,11 +24,24 @@
                         <label for="editPhone" class="form-label">Téléphone</label>
                         <input type="text" class="form-control" id="editPhone">
                     </div>
+                    <!-- Nouveaux champs pour l'adresse -->
                     <div class="mb-3">
-                        <label for="editAddress" class="form-label">Adresse</label>
-                        <input type="text" class="form-control" id="editAddress">
+                        <label for="editStreet" class="form-label">Rue</label>
+                        <input type="text" class="form-control" id="editStreet">
                     </div>
-                    <!-- Si vous souhaitez autoriser la modification du mot de passe ou du rôle, ajoutez les champs ici -->
+                    <div class="mb-3">
+                        <label for="editCity" class="form-label">Ville</label>
+                        <input type="text" class="form-control" id="editCity">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editPostalCode" class="form-label">Code Postal</label>
+                        <input type="text" class="form-control" id="editPostalCode">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editCountry" class="form-label">Pays</label>
+                        <input type="text" class="form-control" id="editCountry">
+                    </div>
+                    <!-- Fin des champs adresse -->
                     <button type="submit" class="btn btn-primary">Enregistrer</button>
                 </form>
             </div>

@@ -92,7 +92,10 @@ $(document).ready(function () {
                 lastName: $('#lastName').val(),
                 email: $('#emailReg').val(),
                 phone: $('#phone').val(),
-                address: $('#address').val(),
+                addressStreet: $('#addressStreet').val(),
+                addressCity: $('#addressCity').val(),
+                addressPostalCode: $('#addressPostalCode').val(),
+                addressCountry: $('#addressCountry').val(),
                 password: $('#passwordReg').val(),
                 confirmPassword: $('#confirmPassword').val(),
                 [csrfParameterName]: csrfToken

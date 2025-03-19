@@ -1,5 +1,6 @@
 package dev.bcharthur.ludotech.controller;
 
+import dev.bcharthur.ludotech.models.Adresse;
 import dev.bcharthur.ludotech.models.Client;
 import dev.bcharthur.ludotech.models.RegisterDto;
 import dev.bcharthur.ludotech.repository.ClientRepository;
@@ -55,8 +56,6 @@ public class AuthRestController {
         }
     }
 
-
-
     @PostMapping("/register")
     @ResponseBody
     public ResponseEntity<?> register(
@@ -88,7 +87,15 @@ public class AuthRestController {
             newUser.setLastName(registerDto.getLastName());
             newUser.setEmail(registerDto.getEmail());
             newUser.setPhone(registerDto.getPhone());
-            newUser.setAddress(registerDto.getAddress());
+
+            // Création de l'adresse à partir des champs du RegisterDto
+            Adresse adresse = new Adresse();
+            adresse.setStreet(registerDto.getAddressStreet());
+            adresse.setCity(registerDto.getAddressCity());
+            adresse.setPostalCode(registerDto.getAddressPostalCode());
+            adresse.setCountry(registerDto.getAddressCountry());
+            newUser.setAdresse(adresse);
+
             newUser.setRole("client");
             newUser.setCreatedAT(new Date());
             newUser.setPassword(bCryptEncoder.encode(registerDto.getPassword()));

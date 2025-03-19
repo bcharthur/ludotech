@@ -1,23 +1,29 @@
 $(document).ready(function() {
-    // Lorsque l'on clique sur un bouton .btnEdit, charger les données de l'utilisateur
+    // Lorsque l'on clique sur un bouton .btnEdit, charger les données du client
     $('#usersTable').on('click', '.btnEdit', function() {
-        const userId = $(this).data('id');
+        const clientId = $(this).data('id');
         $.ajax({
-            url: '/admin/client/' + userId,
+            url: '/admin/client/' + clientId,
             type: 'GET',
-            success: function(user) {
-                // Remplir les champs de la modal
-                $('#editUserId').val(user.id);
-                $('#editFirstName').val(user.firstName);
-                $('#editLastName').val(user.lastName);
-                $('#editEmail').val(user.email);
-                $('#editPhone').val(user.phone);
-                $('#editAddress').val(user.address);
+            success: function(client) {
+                // Remplir les champs du formulaire
+                $('#editUserId').val(client.id);
+                $('#editFirstName').val(client.firstName);
+                $('#editLastName').val(client.lastName);
+                $('#editEmail').val(client.email);
+                $('#editPhone').val(client.phone);
+
+                // Remplir les champs d'adresse
+                $('#editStreet').val(client.adresse ? client.adresse.street : '');
+                $('#editCity').val(client.adresse ? client.adresse.city : '');
+                $('#editPostalCode').val(client.adresse ? client.adresse.postalCode : '');
+                $('#editCountry').val(client.adresse ? client.adresse.country : '');
+
                 // Ouvrir la modal
                 $('#editUserModal').modal('show');
             },
             error: function() {
-                alert("Impossible de récupérer les informations de l'utilisateur.");
+                alert("Impossible de récupérer les informations du client.");
             }
         });
     });
@@ -25,34 +31,33 @@ $(document).ready(function() {
     // Lorsque le formulaire d'édition est soumis
     $('#editUserForm').on('submit', function(e) {
         e.preventDefault();
-        const userData = {
+        const clientData = {
             id: $('#editUserId').val(),
             firstName: $('#editFirstName').val(),
             lastName: $('#editLastName').val(),
             email: $('#editEmail').val(),
             phone: $('#editPhone').val(),
-            address: $('#editAddress').val()
+            adresse: {
+                street: $('#editStreet').val(),
+                city: $('#editCity').val(),
+                postalCode: $('#editPostalCode').val(),
+                country: $('#editCountry').val()
+            }
         };
 
         $.ajax({
             url: '/admin/client/edit',
             type: 'POST',
             contentType: 'application/json',
-            data: JSON.stringify(userData),
+            data: JSON.stringify(clientData),
             success: function(response) {
-                // Fermer la modal d'édition
                 $('#editUserModal').modal('hide');
-
-                // Afficher la modal de succès
                 $('#successModalMessage').text(response);
                 $('#successModal').modal('show');
-
-                // Rafraîchir le DataTable
                 $('#usersTable').DataTable().ajax.reload(null, false);
             },
-
             error: function(xhr) {
-                alert("Erreur lors de la modification de l'utilisateur : " + xhr.responseText);
+                alert("Erreur lors de la modification du client : " + xhr.responseText);
             }
         });
     });

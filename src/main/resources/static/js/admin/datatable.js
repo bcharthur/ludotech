@@ -11,7 +11,15 @@ $(document).ready(function () {
                 { data: 'lastName' },
                 { data: 'email' },
                 { data: 'phone' },
-                { data: 'address' },
+                {
+                    data: null,
+                    render: function (data, type, row) {
+                        if (row.adresse) {
+                            return row.adresse.street + ', ' + row.adresse.city;
+                        }
+                        return '';
+                    }
+                },
                 {
                     data: null,
                     render: function (data, type, row) {

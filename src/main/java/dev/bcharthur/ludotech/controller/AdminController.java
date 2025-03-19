@@ -39,7 +39,7 @@ public class AdminController {
         existing.setLastName(client.getLastName());
         existing.setEmail(client.getEmail());
         existing.setPhone(client.getPhone());
-        existing.setAddress(client.getAddress());
+        existing.setAdresse(client.getAdresse());
         // Autres modifications (role, password, etc.) si nécessaire
 
         repo.save(existing);
