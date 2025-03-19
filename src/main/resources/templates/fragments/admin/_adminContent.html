@@ -10,17 +10,11 @@
                 <th>Email</th>
                 <th>Téléphone</th>
                 <th>Adresse</th>
+                <th>Actions</th>
             </tr>
             </thead>
+            <!-- Laissez le tbody vide. DataTables s'en charge via Ajax -->
             <tbody>
-            <tr th:each="user : ${users}">
-                <td th:text="${user.id}">1</td>
-                <td th:text="${user.firstName}">John</td>
-                <td th:text="${user.lastName}">Doe</td>
-                <td th:text="${user.email}">john@example.com</td>
-                <td th:text="${user.phone}">1234567890</td>
-                <td th:text="${user.address}">Adresse</td>
-            </tr>
             </tbody>
         </table>
     </div>

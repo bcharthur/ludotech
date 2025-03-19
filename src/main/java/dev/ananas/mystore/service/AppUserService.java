@@ -6,9 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
@@ -28,12 +29,11 @@ public class AppUserService implements UserDetailsService {
             throw new UsernameNotFoundException("User not found with email: " + email);
         }
 
-        var springUser = User.withUsername(appUser.getEmail())
+        // Spring interprète appUser.getRole() (ex: "admin") comme "ROLE_admin"
+        return User.withUsername(appUser.getEmail())
                 .password(appUser.getPassword())
                 .roles(appUser.getRole())
                 .build();
-
-        return springUser;
     }
 
     public void save(AppUser user) {
@@ -41,7 +41,6 @@ public class AppUserService implements UserDetailsService {
         repo.save(user);
     }
 
-    // Nouvelle méthode pour récupérer tous les utilisateurs
     public List<AppUser> getAllUsers() {
         return repo.findAll();
     }
