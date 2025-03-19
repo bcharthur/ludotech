@@ -19,67 +19,76 @@ public class RegisterDto {
 
     private String phone;
 
-    private String address;
+    // Nouveaux champs pour l'adresse
+    private String addressStreet;
+    private String addressCity;
+    private String addressPostalCode;
+    private String addressCountry;
 
-    // Le mot de passe doit avoir au moins 8 caractères, une minuscule, une majuscule et un chiffre
     @Size(min = 8, message = "La longueur minimale du mot de passe est de 8 caractères")
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$", message = "Le mot de passe doit contenir au moins une lettre minuscule, une lettre majuscule et un chiffre")
     private String password;
 
     private String confirmPassword;
 
-    public @NotEmpty(message = "Le prénom est obligatoire") String getFirstName() {
+    // Getters et setters
+    public String getFirstName() {
         return firstName;
     }
-
-    public void setFirstName(@NotEmpty(message = "Le prénom est obligatoire") String firstName) {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-
-    public @NotEmpty(message = "Le nom est obligatoire") String getLastName() {
+    public String getLastName() {
         return lastName;
     }
-
-    public void setLastName(@NotEmpty(message = "Le nom est obligatoire") String lastName) {
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
-    public @NotEmpty(message = "L'email est obligatoire") @Email(message = "L'email n'est pas valide") String getEmail() {
+    public String getEmail() {
         return email;
     }
-
-    public void setEmail(@NotEmpty(message = "L'email est obligatoire") @Email(message = "L'email n'est pas valide") String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
-
     public String getPhone() {
         return phone;
     }
-
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
-    public String getAddress() {
-        return address;
+    public String getAddressStreet() {
+        return addressStreet;
     }
-
-    public void setAddress(String address) {
-        this.address = address;
+    public void setAddressStreet(String addressStreet) {
+        this.addressStreet = addressStreet;
     }
-
-    public @Size(min = 8, message = "La longueur minimale du mot de passe est de 8 caractères") @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$", message = "Le mot de passe doit contenir au moins une lettre minuscule, une lettre majuscule et un chiffre") String getPassword() {
+    public String getAddressCity() {
+        return addressCity;
+    }
+    public void setAddressCity(String addressCity) {
+        this.addressCity = addressCity;
+    }
+    public String getAddressPostalCode() {
+        return addressPostalCode;
+    }
+    public void setAddressPostalCode(String addressPostalCode) {
+        this.addressPostalCode = addressPostalCode;
+    }
+    public String getAddressCountry() {
+        return addressCountry;
+    }
+    public void setAddressCountry(String addressCountry) {
+        this.addressCountry = addressCountry;
+    }
+    public String getPassword() {
         return password;
     }
-
-    public void setPassword(@Size(min = 8, message = "La longueur minimale du mot de passe est de 8 caractères") @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$", message = "Le mot de passe doit contenir au moins une lettre minuscule, une lettre majuscule et un chiffre") String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
-
     public String getConfirmPassword() {
         return confirmPassword;
     }
-
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
     }
