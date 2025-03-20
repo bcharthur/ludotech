@@ -26,8 +26,8 @@ $(document).ready(function () {
                     data: null,
                     render: function(data, type, row) {
                         return `
-                            <button class="btn btn-warning btn-sm btnEdit" data-id="${row.id}" data-bs-toggle="modal" data-bs-target="#editJeuModal">Éditer</button>
-                            <button class="btn btn-danger btn-sm btnDelete" data-id="${row.id}" data-bs-toggle="modal" data-bs-target="#deleteJeuModal">Supprimer</button>
+                            <button class="btn btn-warning btn-sm btnEdit" data-id="${row.id}" data-bs-toggle="modal" data-bs-target="#editJeuModal"><i class="fa-solid fa-pen-to-square"></i></button>
+                            <button class="btn btn-danger btn-sm btnDelete" data-id="${row.id}" data-bs-toggle="modal" data-bs-target="#deleteJeuModal"><i class="fa-solid fa-trash"></i></button>
                         `;
                     },
                     orderable: false

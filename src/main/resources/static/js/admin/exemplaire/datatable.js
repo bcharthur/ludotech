@@ -25,8 +25,8 @@ $(document).ready(function() {
                 data: null,
                 title: 'Actions',
                 render: function(data, type, row) {
-                    return '<button class="btn btn-warning btn-sm btnEdit" data-id="'+row.id+'">Editer</button> ' +
-                        '<button class="btn btn-danger btn-sm btnDelete" data-id="'+row.id+'">Supprimer</button>';
+                    return '<button class="btn btn-warning btn-sm btnEdit" data-id="'+row.id+'"><i class="fa-solid fa-pen-to-square"></i></button> ' +
+                        '<button class="btn btn-danger btn-sm btnDelete" data-id="'+row.id+'"><i class="fa-solid fa-trash"></i></button>';
                 }
             }
         ]
