@@ -26,6 +26,9 @@ public class SecurityConfig {
                         .requestMatchers("/", "/index", "/register", "/login", "/check-email", "/check-password", "/css/**", "/js/**")
                         .permitAll()
 
+                        // Autoriser l'accès public aux APIs de récupération des jeux et genres
+                        .requestMatchers("/api/jeux", "/api/genres", "/api/jeu/{id}").permitAll()
+
                         // Autoriser seulement les administrateurs à accéder aux endpoints commençant par /admin
                         .requestMatchers("/admin/**").hasAnyRole("admin", "employe")
 
