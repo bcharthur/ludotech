@@ -1,5 +1,29 @@
 $(document).ready(function() {
-    // Lorsqu'on clique sur le bouton d'édition, charger les informations du jeu
+
+    // Fonction qui recharge le select des genres pour l'édition en pré-sélectionnant ceux du jeu
+    function updateGenreSelectForEdit(game) {
+        $.ajax({
+            url: '/api/genres', // appel à l'API qui renvoie tous les genres
+            method: 'GET',
+            success: function(genres) {
+                var select = $('#editGenres');
+                select.empty();
+                // Pour chaque genre, créer une option et si le jeu possède ce genre, le marquer comme sélectionné
+                genres.forEach(function(genre) {
+                    var option = $('<option>', { value: genre.id, text: genre.libelle });
+                    if (game.genres && game.genres.some(g => g.id === genre.id)) {
+                        option.prop('selected', true);
+                    }
+                    select.append(option);
+                });
+            },
+            error: function(error) {
+                console.error("Erreur lors de la récupération des genres", error);
+            }
+        });
+    }
+
+    // Lorsqu'on clique sur le bouton d'édition, on charge les informations du jeu et on remplit le select
     $('#jeuxTable').on('click', '.btnEdit', function() {
         const jeuId = $(this).data('id');
         $.ajax({
@@ -13,13 +37,8 @@ $(document).ready(function() {
                 $('#editDescription').val(jeu.description);
                 $('#editDuree').val(jeu.duree);
                 $('#editTarifJour').val(jeu.tarifJour);
-                // Pour les genres, on utilise un champ texte avec les libellés séparés par une virgule
-                if (jeu.genres && jeu.genres.length > 0) {
-                    let genresStr = jeu.genres.map(function(g) { return g.libelle; }).join(', ');
-                    $('#editGenres').val(genresStr);
-                } else {
-                    $('#editGenres').val('');
-                }
+                // Recharge le select des genres avec pré-sélection
+                updateGenreSelectForEdit(jeu);
                 $('#editJeuModal').modal('show');
             },
             error: function() {
@@ -31,6 +50,7 @@ $(document).ready(function() {
     // Envoi du formulaire d'édition
     $('#editJeuForm').on('submit', function(e) {
         e.preventDefault();
+        const selectedGenreIds = $('#editGenres').val() || [];
         const jeuData = {
             id: $('#editJeuId').val(),
             titre: $('#editTitre').val(),
@@ -39,9 +59,9 @@ $(document).ready(function() {
             description: $('#editDescription').val(),
             duree: $('#editDuree').val(),
             tarifJour: $('#editTarifJour').val(),
-            // Les genres sont envoyés sous forme d'une liste d'objets avec le libellé
-            genres: $('#editGenres').val().split(',').map(function(item) {
-                return { libelle: item.trim() };
+            // Construit la liste des genres en envoyant leurs ids
+            genres: selectedGenreIds.map(function(id) {
+                return { id: id };
             })
         };
 
