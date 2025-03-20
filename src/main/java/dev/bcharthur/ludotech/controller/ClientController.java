@@ -32,7 +32,7 @@ public class ClientController {
     @ResponseBody
     public ResponseEntity<?> editClient(@RequestBody Client client) {
         Client existing = clientRepo.findById(client.getId()).orElse(null);
-        if(existing == null) {
+        if (existing == null) {
             return ResponseEntity.badRequest().body("Client introuvable");
         }
         existing.setFirstName(client.getFirstName());
@@ -54,7 +54,7 @@ public class ClientController {
     @DeleteMapping("/{id}")
     @ResponseBody
     public ResponseEntity<?> deleteClient(@PathVariable int id) {
-        if(!clientRepo.existsById(id)) {
+        if (!clientRepo.existsById(id)) {
             return ResponseEntity.badRequest().body("Client introuvable");
         }
         clientRepo.deleteById(id);

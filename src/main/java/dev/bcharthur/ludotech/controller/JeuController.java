@@ -1,12 +1,18 @@
 package dev.bcharthur.ludotech.controller;
 
+import dev.bcharthur.ludotech.models.Genre;
 import dev.bcharthur.ludotech.models.Jeu;
 import dev.bcharthur.ludotech.repository.JeuRepository;
+import dev.bcharthur.ludotech.service.GenreService;
 import dev.bcharthur.ludotech.service.JeuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin/jeu")
@@ -18,11 +24,14 @@ public class JeuController {
     @Autowired
     private JeuService jeuService;
 
+    @Autowired
+    private GenreService genreService;
+
     @GetMapping("/{id}")
     @ResponseBody
     public ResponseEntity<?> getJeuById(@PathVariable int id) {
         Jeu jeu = jeuRepo.findById(id).orElse(null);
-        if(jeu == null) {
+        if (jeu == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(jeu);
@@ -32,7 +41,7 @@ public class JeuController {
     @ResponseBody
     public ResponseEntity<?> editJeu(@RequestBody Jeu jeu) {
         Jeu existing = jeuRepo.findById(jeu.getId()).orElse(null);
-        if(existing == null) {
+        if (existing == null) {
             return ResponseEntity.badRequest().body("Jeu introuvable");
         }
         existing.setTitre(jeu.getTitre());
@@ -49,17 +58,29 @@ public class JeuController {
     @PostMapping("/add")
     @ResponseBody
     public ResponseEntity<?> addJeu(@RequestBody Jeu jeu) {
+        // Récupère les genres gérés à partir des ids reçus
+        Set<Genre> managedGenres = jeu.getGenres().stream()
+                .map(genre -> genreService.getGenreById(genre.getId()))
+                .collect(Collectors.toSet());
+        jeu.setGenres(managedGenres);
         Jeu saved = jeuRepo.save(jeu);
         return ResponseEntity.ok("Jeu ajouté avec succès");
     }
 
+
     @DeleteMapping("/{id}")
     @ResponseBody
     public ResponseEntity<?> deleteJeu(@PathVariable int id) {
-        if(!jeuRepo.existsById(id)) {
+        if (!jeuRepo.existsById(id)) {
             return ResponseEntity.badRequest().body("Jeu introuvable");
         }
         jeuRepo.deleteById(id);
         return ResponseEntity.ok("Jeu supprimé avec succès");
     }
+
+    @ModelAttribute("allGenres")
+    public List<Genre> populateGenres() {
+        return genreService.getAllGenres();
+    }
+
 }
