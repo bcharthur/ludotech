@@ -111,4 +111,7 @@
         </div>
     </div>
 </div>
+    <div sec:authorize="!isAuthenticated()">
+        <h1 class="text-center">Hello world !</h1>
+    </div>
 </div>

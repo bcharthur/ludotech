@@ -60,6 +60,8 @@ public class HomeController {
                 model.addAttribute("prenom", "User");
             }
             model.addAttribute("allGenres", genreService.getAllGenres());
+            model.addAttribute("allJeux", jeuService.getAllJeux());
+
         }
         return "index";
     }
