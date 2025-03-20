@@ -1,6 +1,6 @@
 $(document).ready(function() {
     let currentJeuIdToDelete = null;
-    console.log("delete.js chargé");
+    // console.log("delete.js chargé");
 
     // Lorsqu'on clique sur un bouton de suppression dans le tableau, on récupère l'ID et on affiche la modal
     $('#jeuxTable').on('click', '.btnDelete', function() {

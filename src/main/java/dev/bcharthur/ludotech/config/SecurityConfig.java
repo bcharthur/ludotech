@@ -27,7 +27,7 @@ public class SecurityConfig {
                         .permitAll()
 
                         // Autoriser seulement les administrateurs à accéder aux endpoints commençant par /admin
-                        .requestMatchers("/admin/**").hasRole("admin")
+                        .requestMatchers("/admin/**").hasAnyRole("admin", "employe")
 
                         // Toute autre URL nécessite d'être simplement authentifié
                         .anyRequest().authenticated()

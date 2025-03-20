@@ -39,49 +39,49 @@
 //    @DisplayName("Création d'un Client - cas positif")
 //    public void testCreationAppUser() {
 //        // Arrange
-//        Client user = new Client();
-//        user.setId(1);
-//        user.setFirstName("John");
-//        user.setLastName("Doe");
-//        user.setEmail("john@example.com");
-//        user.setPhone("1234567890");
-//        user.setAddress("123 Rue de Paris");
-//        user.setPassword("password123");
-//        user.setRole("client");
+//        Client client = new Client();
+//        client.setId(1);
+//        client.setFirstName("John");
+//        client.setLastName("Doe");
+//        client.setEmail("john@example.com");
+//        client.setPhone("1234567890");
+//        client.setAddress("123 Rue de Paris");
+//        client.setPassword("password123");
+//        client.setRole("client");
 //        Date now = new Date();
-//        user.setCreatedAT(now);
+//        client.setCreatedAT(now);
 //
 //        // Assert
-//        assertNotNull(user, "L'utilisateur ne doit pas être null");
-//        assertEquals(1, user.getId(), "L'ID doit être égal à 1");
-//        assertEquals("John", user.getFirstName(), "Le prénom doit être 'John'");
-//        assertEquals("Doe", user.getLastName(), "Le nom doit être 'Doe'");
-//        assertEquals("john@example.com", user.getEmail(), "L'email doit être 'john@example.com'");
-//        assertEquals("1234567890", user.getPhone(), "Le téléphone doit être '1234567890'");
-//        assertEquals("123 Rue de Paris", user.getAddress(), "L'adresse doit être '123 Rue de Paris'");
-//        assertEquals("password123", user.getPassword(), "Le mot de passe doit être 'password123'");
-//        assertEquals("client", user.getRole(), "Le rôle doit être 'client'");
-//        assertEquals(now, user.getCreatedAT(), "La date de création doit correspondre");
+//        assertNotNull(client, "L'utilisateur ne doit pas être null");
+//        assertEquals(1, client.getId(), "L'ID doit être égal à 1");
+//        assertEquals("John", client.getFirstName(), "Le prénom doit être 'John'");
+//        assertEquals("Doe", client.getLastName(), "Le nom doit être 'Doe'");
+//        assertEquals("john@example.com", client.getEmail(), "L'email doit être 'john@example.com'");
+//        assertEquals("1234567890", client.getPhone(), "Le téléphone doit être '1234567890'");
+//        assertEquals("123 Rue de Paris", client.getAddress(), "L'adresse doit être '123 Rue de Paris'");
+//        assertEquals("password123", client.getPassword(), "Le mot de passe doit être 'password123'");
+//        assertEquals("client", client.getRole(), "Le rôle doit être 'client'");
+//        assertEquals(now, client.getCreatedAT(), "La date de création doit correspondre");
 //    }
 //
 //    @Test
 //    @DisplayName("Création d'un Client sans email")
 //    public void testCreationAppUserWithoutEmail() {
 //        // Arrange
-//        Client user = new Client();
-//        user.setId(2);
-//        user.setFirstName("Alice");
-//        user.setLastName("Smith");
+//        Client client = new Client();
+//        client.setId(2);
+//        client.setFirstName("Alice");
+//        client.setLastName("Smith");
 //        // L'email n'est pas renseigné (null)
-//        user.setPhone("0987654321");
-//        user.setAddress("456 Rue de Lyon");
-//        user.setPassword("Passw0rd!");
-//        user.setRole("client");
+//        client.setPhone("0987654321");
+//        client.setAddress("456 Rue de Lyon");
+//        client.setPassword("Passw0rd!");
+//        client.setRole("client");
 //        Date now = new Date();
-//        user.setCreatedAT(now);
+//        client.setCreatedAT(now);
 //
 //        // Assert
-//        assertNotNull(user, "L'utilisateur ne doit pas être null");
-//        assertNull(user.getEmail(), "L'email doit être null");
+//        assertNotNull(client, "L'utilisateur ne doit pas être null");
+//        assertNull(client.getEmail(), "L'email doit être null");
 //    }
 //}

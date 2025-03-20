@@ -1,0 +1,31 @@
+<!-- templates/fragments/admin/exemplaire/_addExemplaire.html -->
+<div class="modal fade" id="addExemplaireModal" tabindex="-1" aria-labelledby="addExemplaireModalLabel" aria-hidden="true" th:fragment="addExemplaireModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addExemplaireModalLabel">Ajouter un nouvel exemplaire</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addExemplaireForm">
+                    <div class="mb-3">
+                        <label for="addCodebarre" class="form-label">Code-barres</label>
+                        <input type="text" class="form-control" id="addCodebarre" required>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="addLouable">
+                        <label class="form-check-label" for="addLouable">Louable</label>
+                    </div>
+                    <div class="mb-3">
+                        <label for="addJeuSelect" class="form-label">Jeu</label>
+                        <select class="form-select" id="addJeuSelect" aria-label="Sélectionnez un jeu" required>
+                            <!-- Les options seront chargées dynamiquement via JS -->
+                            <option value="" disabled selected>-- Sélectionnez un jeu --</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -2,8 +2,10 @@ package dev.bcharthur.ludotech.controller;
 
 import dev.bcharthur.ludotech.models.Client;
 import dev.bcharthur.ludotech.models.Genre;
+import dev.bcharthur.ludotech.models.Jeu;
 import dev.bcharthur.ludotech.service.ClientService;
 import dev.bcharthur.ludotech.service.GenreService;
+import dev.bcharthur.ludotech.service.JeuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,10 +26,19 @@ public class HomeController {
     @Autowired
     private GenreService genreService;
 
+    @Autowired
+    private JeuService jeuService;
+
     @GetMapping("/api/genres")
     @ResponseBody
     public List<Genre> getAllGenresApi() {
         return genreService.getAllGenres();
+    }
+
+    @GetMapping("/api/jeux")
+    @ResponseBody
+    public List<Jeu> getAllJeuxApi() {
+        return jeuService.getAllJeux();
     }
 
 
@@ -49,6 +60,8 @@ public class HomeController {
                 model.addAttribute("prenom", "User");
             }
             model.addAttribute("allGenres", genreService.getAllGenres());
+            model.addAttribute("allJeux", jeuService.getAllJeux());
+
         }
         return "index";
     }
