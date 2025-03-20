@@ -1,0 +1,32 @@
+<!-- templates/fragments/admin/exemplaire/_editExemplaire.html -->
+<div class="modal fade" id="editExemplaireModal" tabindex="-1" aria-labelledby="editExemplaireModalLabel" aria-hidden="true" th:fragment="editExemplaireModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editExemplaireModalLabel">Éditer l'exemplaire</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editExemplaireForm">
+                    <input type="hidden" id="editExemplaireId">
+                    <div class="mb-3">
+                        <label for="editCodebarre" class="form-label">Code-barres</label>
+                        <input type="text" class="form-control" id="editCodebarre" required>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="editLouable">
+                        <label class="form-check-label" for="editLouable">Louable</label>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editJeuSelect" class="form-label">Jeu</label>
+                        <select class="form-select" id="editJeuSelect" required>
+                            <option value="" disabled selected>-- Sélectionnez un jeu --</option>
+                            <!-- Options chargées dynamiquement -->
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -95,6 +95,11 @@
 <div th:replace="fragments/admin/genre/_deleteGenre :: deleteGenreModal"></div>
 <div th:replace="fragments/admin/genre/_addGenre :: addGenreModal"></div>
 
+<!-- Inclusion des modals d'édition et de suppression -->
+<div th:replace="fragments/admin/exemplaire/_editExemplaire :: editExemplaireModal"></div>
+<div th:replace="fragments/admin/exemplaire/_deleteExemplaire :: deleteExemplaireModal"></div>
+<div th:replace="fragments/admin/exemplaire/_addExemplaire :: addExemplaireModal"></div>
+
 
 <!-- Scripts Bootstrap + jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -132,6 +137,12 @@
 <script src="/js/admin/genre/delete.js"></script>
 <script src="/js/admin/genre/edit.js"></script>
 <script src="/js/admin/genre/add.js"></script>
+
+<script src="/js/admin/exemplaire/datatable.js"></script>
+<script src="/js/admin/exemplaire/delete.js"></script>
+<script src="/js/admin/exemplaire/edit.js"></script>
+<script src="/js/admin/exemplaire/add.js"></script>
+
 
 <script src="/js/home/login.js"></script>
 <script src="/js/home/register.js"></script>
