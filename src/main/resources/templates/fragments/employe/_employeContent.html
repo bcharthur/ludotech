@@ -1,5 +1,9 @@
 <div th:fragment="employeContent">
     <div sec:authorize="isAuthenticated()">
+        <div sec:authorize="isAuthenticated()">
+            <h1 class="text-center">Hello, <span th:text="${prenom}"></span> !</h1>
+        </div>
+
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" id="adminTabs" role="tablist">
             <li class="nav-item" role="presentation">
@@ -108,9 +112,5 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div sec:authorize="!isAuthenticated()">
-        <h1 class="text-center">Hello world !</h1>
     </div>
 </div>

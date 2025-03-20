@@ -1,0 +1,31 @@
+<!-- templates/fragments/client/modals/_detailJeu.html -->
+<div class="modal fade" id="detailJeuModal" tabindex="-1" aria-labelledby="detailJeuModalLabel" aria-hidden="true" th:fragment="detailJeuModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailJeuModalLabel">Détails du jeu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <!-- Image du jeu -->
+                        <img id="detailJeuImage" src="https://placehold.co/500x300" class="img-fluid" alt="Image du jeu">
+                    </div>
+                    <div class="col-md-6">
+                        <h3 id="detailJeuTitre">Titre du jeu</h3>
+                        <p><strong>Référence :</strong> <span id="detailJeuReference"></span></p>
+                        <p><strong>Âge minimum :</strong> <span id="detailJeuAgeMin"></span> ans</p>
+                        <p><strong>Description :</strong> <span id="detailJeuDescription"></span></p>
+                        <p><strong>Durée :</strong> <span id="detailJeuDuree"></span> min</p>
+                        <p><strong>Tarif par jour :</strong> <span id="detailJeuTarifJour"></span> €</p>
+                        <p><strong>Genres :</strong> <span id="detailJeuGenres"></span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
