@@ -22,7 +22,7 @@ public class GenreController {
     @ResponseBody
     public ResponseEntity<?> getGenreById(@PathVariable int id) {
         Genre genre = genreRepo.findById(id).orElse(null);
-        if(genre == null) {
+        if (genre == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(genre);
@@ -32,7 +32,7 @@ public class GenreController {
     @ResponseBody
     public ResponseEntity<?> editGenre(@RequestBody Genre genre) {
         Genre existing = genreRepo.findById(genre.getId()).orElse(null);
-        if(existing == null) {
+        if (existing == null) {
             return ResponseEntity.badRequest().body("Genre introuvable");
         }
         existing.setLibelle(genre.getLibelle());
@@ -50,7 +50,7 @@ public class GenreController {
     @DeleteMapping("/{id}")
     @ResponseBody
     public ResponseEntity<?> deleteGenre(@PathVariable int id) {
-        if(!genreRepo.existsById(id)) {
+        if (!genreRepo.existsById(id)) {
             return ResponseEntity.badRequest().body("Genre introuvable");
         }
         genreRepo.deleteById(id);

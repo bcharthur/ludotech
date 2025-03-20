@@ -2,6 +2,7 @@ package dev.bcharthur.ludotech.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import java.util.Set;
 
 @Entity
@@ -13,6 +14,7 @@ public class Genre {
     @Column(name = "no_genre")
     private Integer id;
 
+    @NotBlank(message = "Le libellé du genre est obligatoire")
     @Column(name = "libelle", nullable = false)
     private String libelle;
 
@@ -21,6 +23,7 @@ public class Genre {
     private Set<Jeu> jeux;
 
     // Getters et setters
+
     public Integer getId() {
         return id;
     }
