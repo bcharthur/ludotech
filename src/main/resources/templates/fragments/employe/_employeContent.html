@@ -1,0 +1,112 @@
+<div th:fragment="employeContent">
+    <div sec:authorize="isAuthenticated()">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" id="adminTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="clients-tab" data-bs-toggle="tab" data-bs-target="#clients" type="button" role="tab" aria-controls="clients" aria-selected="true">
+                    Clients
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="jeux-tab" data-bs-toggle="tab" data-bs-target="#jeux" type="button" role="tab" aria-controls="jeux" aria-selected="false">
+                    Jeux
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="genres-tab" data-bs-toggle="tab" data-bs-target="#genres" type="button" role="tab" aria-controls="genres" aria-selected="false">
+                    Genres
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="exemplaires-tab" data-bs-toggle="tab" data-bs-target="#exemplaires" type="button" role="tab" aria-controls="exemplaires" aria-selected="false">
+                    Exemplaires
+                </button>
+            </li>
+        </ul>
+
+        <!-- Tab content -->
+        <div class="tab-content mt-3" id="adminTabsContent">
+            <!-- Clients Tab -->
+            <div class="tab-pane fade show active" id="clients" role="tabpanel" aria-labelledby="clients-tab">
+                <div class="table-responsive">
+                    <table id="usersTable" class="table table-striped table-bordered mt-4" style="width:100%">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Prénom</th>
+                            <th>Nom</th>
+                            <th>Email</th>
+                            <th>Téléphone</th>
+                            <th>Adresse</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- Jeux Tab -->
+            <div class="tab-pane fade" id="jeux" role="tabpanel" aria-labelledby="jeux-tab">
+                <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addJeuModal">
+                    Ajouter Jeu
+                </button>
+                <div class="table-responsive">
+                    <table id="jeuxTable" class="table table-striped table-bordered mt-4" style="width:100%">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Titre</th>
+                            <th>Référence</th>
+                            <th>Âge Min</th>
+                            <th>Description</th>
+                            <th>Durée</th>
+                            <th>Tarif/Jour</th>
+                            <th>Genres</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- Genres Tab -->
+            <div class="tab-pane fade" id="genres" role="tabpanel" aria-labelledby="genres-tab">
+                <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addGenreModal">
+                    Ajouter Genre
+                </button>
+                <div class="table-responsive">
+                    <table id="genresTable" class="table table-striped table-bordered mt-4" style="width:100%">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Libellé</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- Exemplaires Tab -->
+            <div class="tab-pane fade" id="exemplaires" role="tabpanel" aria-labelledby="exemplaires-tab">
+                <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addExemplaireModal">
+                    Ajouter Exemplaire
+                </button>
+                <div class="table-responsive">
+                    <table id="exemplairesTable" class="table table-striped table-bordered mt-4" style="width:100%">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Code-barres</th>
+                            <th>Louable</th>
+                            <th>Jeu</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

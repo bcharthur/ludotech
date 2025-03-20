@@ -3,6 +3,6 @@
         <h1 class="text-center">Hello, world!</h1>
     </div>
     <div sec:authorize="isAuthenticated()">
-        <h1 class="text-center">Hello, <span th:text="${prenom} ">User</span>!</h1>
+        <h1 class="text-center">[Client] Hello, <span th:text="${prenom} ">User</span>!</h1>
     </div>
 </div>

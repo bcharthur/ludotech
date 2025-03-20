@@ -27,7 +27,12 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
     <div class="container">
-        <a class="navbar-brand" href="/">LudoTech</a>
+        <a class="navbar-brand" href="/">
+            LudoTech
+            <span sec:authorize="hasRole('admin')" class="text-muted"> [admin]</span>
+            <span sec:authorize="hasRole('employe')" class="text-muted"> [employe]</span>
+        </a>
+
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -70,8 +75,12 @@
 <div class="container py-5">
     <!-- Pour l'administrateur -->
     <div sec:authorize="hasRole('admin')" th:replace="fragments/admin/_adminContent :: adminContent"></div>
+
+    <!-- Pour l'employé -->
+    <div sec:authorize="hasRole('employe')" th:replace="fragments/employe/_employeContent :: employeContent"></div>
+
     <!-- Pour les autres utilisateurs -->
-    <div sec:authorize="!hasRole('admin')" th:replace="fragments/user/_userContent :: userContent"></div>
+    <div sec:authorize="!hasRole('admin') && !hasRole('employe')" th:replace="fragments/client/_clientContent :: userContent"></div>
 </div>
 
 <!-- Inclusion des fragments de modals "Login" et "Register" (si vous avez ces fragments) -->

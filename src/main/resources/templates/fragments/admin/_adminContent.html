@@ -1,4 +1,5 @@
 <div th:fragment="adminContent">
+    <div sec:authorize="isAuthenticated()">
     <h1 class="text-center">Hello, Admin !</h1>
 
     <!-- Nav tabs -->
@@ -109,4 +110,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>
