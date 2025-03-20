@@ -1,5 +1,6 @@
 package dev.bcharthur.ludotech.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.Set;
 
@@ -16,6 +17,7 @@ public class Genre {
     private String libelle;
 
     @ManyToMany(mappedBy = "genres")
+    @JsonIgnore
     private Set<Jeu> jeux;
 
     // Getters et setters

@@ -1,0 +1,19 @@
+<!-- templates/fragments/admin/genre/_deleteGenre.html -->
+<div class="modal fade" id="deleteGenreModal" tabindex="-1" aria-labelledby="deleteGenreModalLabel" aria-hidden="true" th:fragment="deleteGenreModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteGenreModalLabel">Supprimer le genre</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+            <div class="modal-body">
+                <p>Êtes-vous sûr de vouloir supprimer ce genre ?</p>
+                <input type="hidden" id="deleteGenreId">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteGenreButton">Supprimer</button>
+            </div>
+        </div>
+    </div>
+</div>

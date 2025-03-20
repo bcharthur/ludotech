@@ -36,6 +36,11 @@ public class ClientService implements UserDetailsService {
                 .build();
     }
 
+    public Client findByEmail(String email) {
+        return repo.findByEmail(email);
+    }
+
+
     public void save(Client user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         repo.save(user);

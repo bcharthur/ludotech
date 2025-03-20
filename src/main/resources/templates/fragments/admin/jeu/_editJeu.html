@@ -1,0 +1,46 @@
+<div class="modal fade" id="editJeuModal" tabindex="-1" aria-labelledby="editJeuModalLabel" aria-hidden="true" th:fragment="editJeuModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editJeuModalLabel">Éditer le jeu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editJeuForm">
+                    <input type="hidden" id="editJeuId">
+                    <div class="mb-3">
+                        <label for="editTitre" class="form-label">Titre</label>
+                        <input type="text" class="form-control" id="editTitre" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editReference" class="form-label">Référence</label>
+                        <input type="text" class="form-control" id="editReference" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editAgeMin" class="form-label">Âge minimum</label>
+                        <input type="number" class="form-control" id="editAgeMin">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editDescription" class="form-label">Description</label>
+                        <textarea class="form-control" id="editDescription"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editDuree" class="form-label">Durée</label>
+                        <input type="number" class="form-control" id="editDuree">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editTarifJour" class="form-label">Tarif par jour</label>
+                        <input type="number" step="0.01" class="form-control" id="editTarifJour">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editGenres" class="form-label">Genres</label>
+                        <select id="editGenres" class="form-control" multiple>
+                            <option th:each="genre : ${allGenres}" th:value="${genre.id}" th:text="${genre.libelle}"></option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

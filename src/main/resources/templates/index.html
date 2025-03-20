@@ -50,7 +50,7 @@
                 <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown"
                        aria-expanded="false">
-                        <span th:text="${email}">User</span>
+                        <span th:text="${prenom}">User</span>
                     </a>
                     <ul class="dropdown-menu">
                         <li>
@@ -69,7 +69,7 @@
 <!-- Contenu principal -->
 <div class="container py-5">
     <!-- Pour l'administrateur -->
-    <div sec:authorize="hasRole('admin')" th:replace="fragments/admin/user/_adminContent :: adminContent"></div>
+    <div sec:authorize="hasRole('admin')" th:replace="fragments/admin/_adminContent :: adminContent"></div>
     <!-- Pour les autres utilisateurs -->
     <div sec:authorize="!hasRole('admin')" th:replace="fragments/user/_userContent :: userContent"></div>
 </div>
@@ -83,6 +83,17 @@
 <div th:replace="fragments/admin/user/_editUser :: editUserModal"></div>
 <div th:replace="fragments/admin/user/_deleteUser :: deleteUserModal"></div>
 <div th:replace="fragments/admin/user/_successModal :: successModal"></div>
+
+
+<!-- Inclusion des modals d'édition et de suppression -->
+<div th:replace="fragments/admin/jeu/_editJeu :: editJeuModal"></div>
+<div th:replace="fragments/admin/jeu/_deleteJeu :: deleteJeuModal"></div>
+<div th:replace="fragments/admin/jeu/_addJeu :: addJeuModal"></div>
+
+<!-- Inclusion des modals d'édition et de suppression -->
+<div th:replace="fragments/admin/genre/_editGenre :: editGenreModal"></div>
+<div th:replace="fragments/admin/genre/_deleteGenre :: deleteGenreModal"></div>
+<div th:replace="fragments/admin/genre/_addGenre :: addGenreModal"></div>
 
 
 <!-- Scripts Bootstrap + jQuery -->
@@ -111,6 +122,16 @@
 <script src="/js/admin/user/datatable.js"></script>
 <script src="/js/admin/user/delete.js"></script>
 <script src="/js/admin/user/edit.js"></script>
+
+<script src="/js/admin/jeu/datatable.js"></script>
+<script src="/js/admin/jeu/delete.js"></script>
+<script src="/js/admin/jeu/edit.js"></script>
+<script src="/js/admin/jeu/add.js"></script>
+
+<script src="/js/admin/genre/datatable.js"></script>
+<script src="/js/admin/genre/delete.js"></script>
+<script src="/js/admin/genre/edit.js"></script>
+<script src="/js/admin/genre/add.js"></script>
 
 <script src="/js/home/login.js"></script>
 <script src="/js/home/register.js"></script>
