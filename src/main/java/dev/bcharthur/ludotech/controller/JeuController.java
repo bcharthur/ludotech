@@ -50,10 +50,16 @@ public class JeuController {
         existing.setDescription(jeu.getDescription());
         existing.setDuree(jeu.getDuree());
         existing.setTarifJour(jeu.getTarifJour());
-        existing.setGenres(jeu.getGenres());
+        // Recharge les genres à partir de la base pour obtenir des entités gérées
+        Set<Genre> managedGenres = jeu.getGenres().stream()
+                .map(g -> genreService.getGenreById(g.getId()))
+                .collect(Collectors.toSet());
+        existing.setGenres(managedGenres);
+
         jeuRepo.save(existing);
         return ResponseEntity.ok("Jeu modifié avec succès");
     }
+
 
     @PostMapping("/add")
     @ResponseBody

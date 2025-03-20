@@ -32,12 +32,14 @@
                         <label for="editTarifJour" class="form-label">Tarif par jour</label>
                         <input type="number" step="0.01" class="form-control" id="editTarifJour">
                     </div>
+                    <!-- Dans votre fragment d'édition de jeu -->
                     <div class="mb-3">
                         <label for="editGenres" class="form-label">Genres</label>
-                        <select id="editGenres" class="form-control" multiple>
-                            <option th:each="genre : ${allGenres}" th:value="${genre.id}" th:text="${genre.libelle}"></option>
+                        <select class="form-select" id="editGenres" aria-label="Sélectionnez un ou plusieurs genres" multiple>
+                            <!-- Les options seront chargées dynamiquement en JS -->
                         </select>
                     </div>
+
                     <button type="submit" class="btn btn-primary">Enregistrer</button>
                 </form>
             </div>
