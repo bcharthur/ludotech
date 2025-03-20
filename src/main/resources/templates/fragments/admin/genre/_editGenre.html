@@ -1,0 +1,20 @@
+<div class="modal fade" id="editGenreModal" tabindex="-1" aria-labelledby="editGenreModalLabel" aria-hidden="true" th:fragment="editGenreModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editGenreModalLabel">Éditer le genre</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editGenreForm">
+                    <input type="hidden" id="editGenreId">
+                    <div class="mb-3">
+                        <label for="editLibelle" class="form-label">Libellé</label>
+                        <input type="text" class="form-control" id="editLibelle" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
