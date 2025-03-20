@@ -77,10 +77,14 @@ public class JeuController {
     @DeleteMapping("/{id}")
     @ResponseBody
     public ResponseEntity<?> deleteJeu(@PathVariable int id) {
-        if (!jeuRepo.existsById(id)) {
+        Jeu jeu = jeuRepo.findById(id).orElse(null);
+        if (jeu == null) {
             return ResponseEntity.badRequest().body("Jeu introuvable");
         }
-        jeuRepo.deleteById(id);
+        // Supprimer la relation dans la table de jointure (jeu_genre)
+        jeu.getGenres().clear();
+        // Supprimer l'entité jeu
+        jeuRepo.delete(jeu);
         return ResponseEntity.ok("Jeu supprimé avec succès");
     }
 
