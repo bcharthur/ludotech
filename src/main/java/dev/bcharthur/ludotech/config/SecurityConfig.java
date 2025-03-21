@@ -27,7 +27,8 @@ public class SecurityConfig {
                         .permitAll()
 
                         // Autoriser l'accès public aux APIs de récupération des jeux et genres
-                        .requestMatchers("/api/jeux", "/api/genres", "/api/jeu/{id}").permitAll()
+                        .requestMatchers("/api/jeux", "/api/genres", "/api/jeu/{id}","/api/jeu/**").permitAll()
+
 
                         // Autoriser l'accès public aux API d'importation depuis BoardGameGeek
                         .requestMatchers("/api/bgg/**")

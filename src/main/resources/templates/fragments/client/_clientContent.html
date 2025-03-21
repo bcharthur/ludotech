@@ -10,7 +10,7 @@
     <div class="container mt-4">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
             <div class="col" th:each="jeu : ${allJeux}">
-                <div class="card h-100 jeu-card" th:data-id="${jeu.id}" style="cursor: pointer;">
+                <div class="card h-100 jeu-card" th:data-id="${jeu.id}">
                     <img th:src="${jeu.image != null} ? ${jeu.image} : 'https://placehold.co/300x200'"
                          class="card-img-top"
                          alt="Image de jeu"
@@ -18,6 +18,19 @@
                     <div class="card-body">
                         <h5 class="card-title" th:text="${jeu.titre}">Titre du jeu</h5>
                         <p class="card-text" th:text="${jeu.description}">Description du jeu</p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <button type="button" class="btn btn-info btn-detail" th:data-jeu-id="${jeu.id}">Détail</button>
+                                <span sec:authorize="isAuthenticated()" style="margin-left: 5px;">
+                                    <button type="button" class="btn btn-success btn-louer" th:data-jeu-id="${jeu.id}">Louer</button>
+                                </span>
+                            </div>
+                            <!-- Affichage du nombre d'exemplaires disponibles -->
+                            <small class="text-muted" th:text="'Dispo : ' + ${exemplairesMap[jeu.id]}"></small>
+
+                        </div>
                     </div>
                 </div>
             </div>

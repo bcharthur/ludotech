@@ -1,0 +1,29 @@
+<!-- templates/fragments/client/modals/_reservationModal.html -->
+<div class="modal fade" id="reservationModal" tabindex="-1" role="dialog" aria-labelledby="reservationModalLabel" aria-hidden="true" th:fragment="reservationModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reservationModalLabel">Détails du jeu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+            <form id="reservationForm" method="post">
+                <div class="modal-body">
+                    <!-- Champ caché pour l'ID du jeu -->
+                    <input type="hidden" name="jeuId" value="">
+                    <div class="form-group">
+                        <label for="reservationDate">Choisissez une date de début :</label>
+                        <input type="text" id="reservationDate" name="dateDebut" class="form-control" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="reservationDuration">Durée (en jours) :</label>
+                        <input type="number" id="reservationDuration" name="duration" class="form-control" min="1" max="21" value="7">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Confirmer la réservation</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
