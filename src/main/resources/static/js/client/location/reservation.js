@@ -1,7 +1,7 @@
 // Fonction qui met à jour l'affichage du "Dispo : X" pour un jeu donné
 function updateAvailability(jeuId, callback) {
     $.ajax({
-        url: `/admin/exemplaire/disponibilite/${jeuId}`,
+        url: `/api/jeu/${jeuId}/exemplaires/disponibles?t=${new Date().getTime()}`,
         type: 'GET',
         success: function(newCount) {
             let availableCountElement = $(`.available-count[data-jeu-id="${jeuId}"]`);
@@ -83,16 +83,21 @@ $(document).ready(function() {
             data: JSON.stringify(reservationData),
             success: function(response) {
                 let jeuId = reservationData.jeuId;
-                // Petite pause pour que la base soit à jour, puis on met à jour l'affichage de "Dispo"
-                setTimeout(function() {
-                    updateAvailability(jeuId, function() {
-                        $('#reservationModal').modal('hide');
-                        $('#successModal').modal('show');
-                    });
-                }, 100); // délai de 100 ms (ajustable si besoin)
+                updateAvailability(jeuId, function() {
+                    $('#reservationModal').modal('hide');
+                    $('#successModalMessage').text(response.message || "Réservation effectuée !");
+                    $('#successModal').modal('show');
+                });
             },
-            error: function(xhr, status, error) {
-                alert("Erreur lors de la réservation : " + error);
+            error: function(xhr) {
+                let errorMsg = "Erreur lors de la réservation.";
+                if (xhr.responseJSON && xhr.responseJSON.error) {
+                    errorMsg = xhr.responseJSON.error;
+                    if (xhr.responseJSON.details) {
+                        errorMsg += " – " + xhr.responseJSON.details;
+                    }
+                }
+                alert(errorMsg);
             }
         });
     });

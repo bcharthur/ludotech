@@ -21,22 +21,21 @@ public class SecurityConfig {
                 .csrf(Customizer.withDefaults())
                 // Configuration d’accès
                 .authorizeHttpRequests(authorize -> authorize
-                        // Autoriser l'accès public aux URL suivantes
-                        .requestMatchers("/", "/index", "/register", "/login", "/check-email", "/check-password", "/css/**", "/js/**")
+                        .requestMatchers("/", "/index", "/register", "/login", "/check-email",
+                                "/check-password", "/css/**", "/js/**")
                         .permitAll()
-                        // Autoriser l'accès public aux APIs de récupération des jeux et genres
                         .requestMatchers("/api/jeux", "/api/genres", "/api/jeu/{id}", "/api/jeu/**")
                         .permitAll()
-                        // Autoriser l'accès public aux API d'importation depuis BoardGameGeek
                         .requestMatchers("/api/bgg/**")
                         .permitAll()
-                        // Autoriser l'accès public aux endpoints d'exemplaires (notamment notre nouvel endpoint)
                         .requestMatchers("/api/exemplaires/**")
                         .permitAll()
-                        // Autoriser seulement les administrateurs à accéder aux endpoints commençant par /admin
+                        // Nouvelle règle pour la disponibilité
+                        .requestMatchers("/admin/exemplaire/disponibilite/**")
+                        .permitAll()
+                        // Règles d'accès admin
                         .requestMatchers("/admin/**")
                         .hasAnyRole("admin", "employe")
-                        // Toute autre URL nécessite d'être simplement authentifié
                         .anyRequest().authenticated()
                 )
                 // Configuration du formLogin
