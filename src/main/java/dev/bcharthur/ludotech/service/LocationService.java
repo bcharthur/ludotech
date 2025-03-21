@@ -1,3 +1,4 @@
+// LocationService.java
 package dev.bcharthur.ludotech.service;
 
 import dev.bcharthur.ludotech.datatable.LocationDataTable;
@@ -93,7 +94,6 @@ public class LocationService {
 
     /**
      * Retourne la liste des exemplaires disponibles (où louable == true) pour le jeu donné.
-     * (Pour simplifier, cette méthode ne tient pas compte des réservations existantes.)
      */
     public List<Exemplaire> getAvailableExemplairesForJeu(Integer jeuId) {
         return exemplaireRepository.findByJeu_IdAndLouableTrue(jeuId);
@@ -109,11 +109,14 @@ public class LocationService {
         // Pour chaque exemplaire, vérifier la disponibilité sur la période
         for (Exemplaire exemplaire : exemplaires) {
             if (isExemplaireDisponible(exemplaire, startDate, endDate)) {
+                // Met à jour le statut de l'exemplaire pour qu'il ne soit plus louable
+                exemplaire.setLouable(false);
+                exemplaireRepository.save(exemplaire);
+
+                // Créer et sauvegarder la réservation
                 Location location = new Location();
                 location.setDateDebut(startDate.atStartOfDay());
-                // Par exemple, la date de retour pourrait être en fin de journée
                 location.setDateRetour(endDate.atTime(23, 59, 59));
-                // On suppose ici que le tarif journalier est défini sur le jeu ou l’exemplaire
                 location.setTarifJour(exemplaire.getJeu().getTarifJour());
                 location.setClient(client);
                 location.getExemplaires().add(exemplaire);
@@ -132,5 +135,4 @@ public class LocationService {
         );
         return reservations.isEmpty();
     }
-
 }

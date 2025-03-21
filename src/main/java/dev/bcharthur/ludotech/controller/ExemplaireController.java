@@ -2,8 +2,8 @@
 package dev.bcharthur.ludotech.controller;
 
 import dev.bcharthur.ludotech.models.Exemplaire;
-import dev.bcharthur.ludotech.models.Genre;
 import dev.bcharthur.ludotech.models.Jeu;
+import dev.bcharthur.ludotech.repository.ExemplaireRepository;
 import dev.bcharthur.ludotech.service.ExemplaireService;
 import dev.bcharthur.ludotech.service.JeuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +19,9 @@ public class ExemplaireController {
 
     @Autowired
     private ExemplaireService exemplaireService;
+
+    @Autowired
+    private ExemplaireRepository exemplaireRepository;
 
     @Autowired
     private JeuService jeuService;
@@ -87,9 +90,15 @@ public class ExemplaireController {
         return ResponseEntity.ok("Exemplaire supprimé avec succès");
     }
 
-
     @ModelAttribute("allJeux")
     public List<Jeu> populateJeux() {
         return jeuService.getAllJeux();
+    }
+
+    // Endpoint renvoyant le nombre d'exemplaires disponibles (louable == true) pour un jeu donné
+    @GetMapping("/disponibilite/{jeuId}")
+    public ResponseEntity<Integer> getAvailableCount(@PathVariable Integer jeuId) {
+        int count = exemplaireRepository.countByJeu_IdAndLouableTrue(jeuId);
+        return ResponseEntity.ok(count);
     }
 }
