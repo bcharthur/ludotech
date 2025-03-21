@@ -26,6 +26,15 @@ dependencies {
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.1.0'
 
+    // Pour parser le XML de l'API BoardGameGeek
+    implementation 'org.jsoup:jsoup:1.16.2'
+    // JSON Parsing
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.16.1'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.16.1'
+
+    // Ajout des dépendances pour utiliser Apache HttpClient avec RestTemplate (nécessaire pour configurer un proxy)
+    implementation 'org.apache.httpcomponents.client5:httpclient5:5.2.1'
+    implementation 'org.apache.httpcomponents.core5:httpcore5:5.2.3'
 
     runtimeOnly 'com.mysql:mysql-connector-j'
 
@@ -33,15 +42,13 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.springframework.security:spring-security-test'
-
-    // Ajoutez explicitement JUnit Jupiter si besoin
+    // Ajout de JUnit Jupiter
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
 
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
+
 
 tasks.named('test') {
     useJUnitPlatform()

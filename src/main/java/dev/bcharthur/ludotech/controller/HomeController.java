@@ -22,6 +22,7 @@ import java.util.List;
 @Controller
 public class HomeController {
 
+
     @Autowired
     private ClientService clientService; // Assurez-vous que ClientService possède une méthode findByEmail()
 
