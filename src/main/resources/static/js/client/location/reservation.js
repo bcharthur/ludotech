@@ -1,4 +1,7 @@
 $(document).ready(function() {
+    // Stocker globalement les dates réservées pour le jeu actuellement sélectionné
+    let globalReservedDates = [];
+
     // Lors du clic sur le bouton "Louer"
     $('.btn-louer').on('click', function(e) {
         e.preventDefault();
@@ -10,6 +13,8 @@ $(document).ready(function() {
             url: `/api/jeu/${jeuId}/reservations/dates`,
             type: 'GET',
             success: function(reservedDates) {
+                // Stocke les dates réservées dans une variable globale pour validation ultérieure
+                globalReservedDates = reservedDates;
                 initDatepicker(reservedDates);
                 // Renseigne le champ caché avec l'ID du jeu sélectionné
                 $('#reservationModal').find('input[name="jeuId"]').val(jeuId);
@@ -21,6 +26,7 @@ $(document).ready(function() {
         });
     });
 
+    // Initialisation du datepicker avec désactivation des dates réservées
     function initDatepicker(reservedDates) {
         $("#reservationDate").datepicker("destroy");
         $("#reservationDate").datepicker({
@@ -48,17 +54,25 @@ $(document).ready(function() {
             duration: $(this).find('input[name="duration"]').val()
         };
 
+        // Vérification côté client si la date sélectionnée est déjà réservée
+        if (globalReservedDates.indexOf(reservationData.dateDebut) !== -1) {
+            alert("Cette date est déjà réservée, veuillez en choisir une autre.");
+            return;
+        }
+
         $.ajax({
             url: '/api/jeu/reserver', // Endpoint pour la réservation
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(reservationData),
             success: function(response) {
-                let jeuId = reservationData.jeuId;
                 // Déclenche la demande de mise à jour via WebSocket
                 if (stompClient) {
-                    stompClient.send('/app/availability/' + jeuId, {}, {});
+                    stompClient.send('/app/availability/' + reservationData.jeuId, {}, {});
                 }
+                // Réinitialise le formulaire et le datepicker de la modal
+                $('#reservationForm')[0].reset();
+                $("#reservationDate").datepicker("destroy");
                 $('#reservationModal').modal('hide');
                 $('#successModalMessage').text(response.message || "Réservation effectuée !");
                 $('#successModal').modal('show');
