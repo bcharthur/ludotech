@@ -19,20 +19,23 @@ public class SecurityConfig {
         http
                 // Active la protection CSRF par défaut :
                 .csrf(Customizer.withDefaults())
-
                 // Configuration d’accès
                 .authorizeHttpRequests(authorize -> authorize
-                        // Autoriser l'accès public aux URL suivantes
-                        .requestMatchers("/", "/index", "/register", "/login", "/check-email", "/check-password", "/css/**", "/js/**")
+                        .requestMatchers("/", "/index", "/register", "/login", "/check-email",
+                                "/check-password", "/css/**", "/js/**")
                         .permitAll()
-
-                        // Autoriser l'accès public aux APIs de récupération des jeux et genres
-                        .requestMatchers("/api/jeux", "/api/genres", "/api/jeu/{id}").permitAll()
-
-                        // Autoriser seulement les administrateurs à accéder aux endpoints commençant par /admin
-                        .requestMatchers("/admin/**").hasAnyRole("admin", "employe")
-
-                        // Toute autre URL nécessite d'être simplement authentifié
+                        .requestMatchers("/api/jeux", "/api/genres", "/api/jeu/{id}", "/api/jeu/**")
+                        .permitAll()
+                        .requestMatchers("/api/bgg/**")
+                        .permitAll()
+                        .requestMatchers("/api/exemplaires/**")
+                        .permitAll()
+                        // Nouvelle règle pour la disponibilité
+                        .requestMatchers("/admin/exemplaire/disponibilite/**")
+                        .permitAll()
+                        // Règles d'accès admin
+                        .requestMatchers("/admin/**")
+                        .hasAnyRole("admin", "employe")
                         .anyRequest().authenticated()
                 )
                 // Configuration du formLogin

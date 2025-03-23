@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class HomeController {
@@ -53,16 +55,23 @@ public class HomeController {
         return ResponseEntity.ok(jeu);
     }
 
-
-
-
     @GetMapping({"", "/"})
     public String home(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        // Ajoute toujours la liste des jeux, même pour les visiteurs
-        model.addAttribute("allJeux", jeuService.getAllJeux());
+        // Récupère tous les jeux et genres pour la page d'accueil
+        List<Jeu> allJeux = jeuService.getAllJeux();
+        model.addAttribute("allJeux", allJeux);
         model.addAttribute("allGenres", genreService.getAllGenres());
+
+        // Prépare une Map associant l'ID du jeu à son nombre d'exemplaires disponibles
+        Map<Integer, Integer> exemplairesMap = new HashMap<>();
+        for (Jeu jeu : allJeux) {
+            // La méthode countAvailableExemplaires doit être implémentée dans JeuService
+            int count = jeuService.countAvailableExemplaires(jeu.getId());
+            exemplairesMap.put(jeu.getId(), count);
+        }
+        model.addAttribute("exemplairesMap", exemplairesMap);
 
         // Si l'utilisateur est authentifié, récupère son prénom
         if (authentication != null &&
@@ -77,5 +86,4 @@ public class HomeController {
 
         return "index";
     }
-
 }

@@ -38,6 +38,9 @@ public class Jeu {
     @Column(name = "tarif_jour", precision = 10, scale = 2)
     private BigDecimal tarifJour;
 
+    @Column(name = "image")
+    private String image;
+
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "jeu_genre",
@@ -109,5 +112,11 @@ public class Jeu {
     }
     public void setGenres(Set<Genre> genres) {
         this.genres = genres;
+    }
+    public String getImage() {
+        return image;
+    }
+    public void setImage(String image) {
+        this.image = image;
     }
 }

@@ -13,7 +13,16 @@ $(document).ready(function() {
                 $("#detailJeuDuree").text(jeu.duree);
                 $("#detailJeuTarifJour").text(jeu.tarifJour);
                 $("#detailJeuGenres").text(jeu.genres.map(g => g.libelle).join(", "));
-                $("#detailJeuImage").attr("src", jeu.imageUrl || "https://placehold.co/300x200");
+                $("#detailJeuImage")
+                    .attr("src", jeu.image || "https://placehold.co/300x200")
+                    .css({
+                        "height": "300px",
+                        "object-fit": "contain",
+                        "display": "block",
+                        "margin": "auto"
+                    });
+
+
 
                 $("#detailJeuModal").modal("show");
             },
