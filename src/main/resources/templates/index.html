@@ -142,6 +142,7 @@
     function connectWebSocket() {
         var socket = new SockJS('/ws');
         stompClient = Stomp.over(socket);
+        stompClient.debug = function() {};
         stompClient.connect({}, function (frame) {
             console.log('Connecté : ' + frame);
             // Pour chaque jeu affiché, abonnez-vous à son topic
