@@ -32,6 +32,8 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.16.1'
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.16.1'
 
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+
     // Ajout des dépendances pour utiliser Apache HttpClient avec RestTemplate (nécessaire pour configurer un proxy)
     implementation 'org.apache.httpcomponents.client5:httpclient5:5.2.1'
     implementation 'org.apache.httpcomponents.core5:httpcore5:5.2.3'

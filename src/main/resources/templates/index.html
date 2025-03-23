@@ -131,9 +131,42 @@
 <script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.1/dist/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+
+
 <!-- Script pour injecter le CSRF dans toutes les requêtes Ajax -->
 <script>
+    var stompClient = null;
+
+    function connectWebSocket() {
+        var socket = new SockJS('/ws');
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, function (frame) {
+            console.log('Connecté : ' + frame);
+            // Pour chaque jeu affiché, abonnez-vous à son topic
+            $('.available-count').each(function() {
+                var $element = $(this);
+                var jeuId = $element.data('jeu-id');
+                stompClient.subscribe('/topic/availability/' + jeuId, function (message) {
+                    // Met à jour le compteur
+                    $element.text('Dispo : ' + message.body);
+                    // Active/désactive le bouton "Louer" en fonction du nombre d'exemplaires disponibles
+                    var $btn = $('.btn-louer[data-jeu-id="' + jeuId + '"]');
+                    if (parseInt(message.body) <= 0) {
+                        $btn.prop("disabled", true);
+                    } else {
+                        $btn.prop("disabled", false);
+                    }
+                });
+            });
+        });
+    }
+
+
     $(document).ready(function() {
+        connectWebSocket();
+
         const token = $('meta[name="_csrf"]').attr('content');
         const header = $('meta[name="_csrf_header"]').attr('content');
 
@@ -166,10 +199,10 @@
 
 <script src="/js/client/details.js"></script>
 
-<script src="/js/client/location/add.js"></script>
-<script src="/js/client/location/datatable.js"></script>
-<script src="/js/client/location/delete.js"></script>
-<script src="/js/client/location/edit.js"></script>
+<!--<script src="/js/client/location/add.js"></script>-->
+<!--<script src="/js/client/location/datatable.js"></script>-->
+<!--<script src="/js/client/location/delete.js"></script>-->
+<!--<script src="/js/client/location/edit.js"></script>-->
 <script src="/js/client/location/reservation.js"></script>
 
 

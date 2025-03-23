@@ -8,6 +8,9 @@ import dev.bcharthur.ludotech.service.ExemplaireService;
 import dev.bcharthur.ludotech.service.JeuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -96,9 +99,10 @@ public class ExemplaireController {
     }
 
     // Endpoint renvoyant le nombre d'exemplaires disponibles (louable == true) pour un jeu donné
-    @GetMapping("/disponibilite/{jeuId}")
-    public ResponseEntity<Integer> getAvailableCount(@PathVariable Integer jeuId) {
-        int count = exemplaireRepository.countByJeu_IdAndLouableTrue(jeuId);
-        return ResponseEntity.ok(count);
+    @MessageMapping("/availability/{jeuId}")
+    @SendTo("/topic/availability/{jeuId}")
+    public int broadcastAvailability(@DestinationVariable Integer jeuId) {
+        // Retourne le nombre d'exemplaires disponibles pour le jeu
+        return exemplaireRepository.countByJeu_IdAndLouableTrue(jeuId);
     }
 }

@@ -1,31 +1,3 @@
-// Fonction qui met à jour l'affichage du "Dispo : X" pour un jeu donné
-function updateAvailability(jeuId, callback) {
-    $.ajax({
-        url: `/api/jeu/${jeuId}/exemplaires/disponibles?t=${new Date().getTime()}`,
-        type: 'GET',
-        success: function(newCount) {
-            let availableCountElement = $(`.available-count[data-jeu-id="${jeuId}"]`);
-            availableCountElement.text("Dispo : " + newCount);
-            // Désactive ou active le bouton "Louer" selon le stock
-            if (newCount <= 0) {
-                $(`.btn-louer[data-jeu-id="${jeuId}"]`).prop("disabled", true);
-            } else {
-                $(`.btn-louer[data-jeu-id="${jeuId}"]`).prop("disabled", false);
-            }
-            if (callback) {
-                callback();
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error("Erreur lors de la mise à jour de la disponibilité : ", error);
-            if (callback) {
-                callback();
-            }
-        }
-    });
-}
-
-// Code de réservation dans reservation.js
 $(document).ready(function() {
     // Lors du clic sur le bouton "Louer"
     $('.btn-louer').on('click', function(e) {
@@ -39,7 +11,7 @@ $(document).ready(function() {
             type: 'GET',
             success: function(reservedDates) {
                 initDatepicker(reservedDates);
-                // On renseigne le champ caché avec l'ID du jeu sélectionné
+                // Renseigne le champ caché avec l'ID du jeu sélectionné
                 $('#reservationModal').find('input[name="jeuId"]').val(jeuId);
                 $('#reservationModal').modal('show');
             },
@@ -83,11 +55,13 @@ $(document).ready(function() {
             data: JSON.stringify(reservationData),
             success: function(response) {
                 let jeuId = reservationData.jeuId;
-                updateAvailability(jeuId, function() {
-                    $('#reservationModal').modal('hide');
-                    $('#successModalMessage').text(response.message || "Réservation effectuée !");
-                    $('#successModal').modal('show');
-                });
+                // Déclenche la demande de mise à jour via WebSocket
+                if (stompClient) {
+                    stompClient.send('/app/availability/' + jeuId, {}, {});
+                }
+                $('#reservationModal').modal('hide');
+                $('#successModalMessage').text(response.message || "Réservation effectuée !");
+                $('#successModal').modal('show');
             },
             error: function(xhr) {
                 let errorMsg = "Erreur lors de la réservation.";

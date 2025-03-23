@@ -27,7 +27,7 @@
                                 </span>
                             </div>
                             <!-- Affichage du nombre d'exemplaires disponibles -->
-                            <small class="text-muted available-count" data-jeu-id="${jeu.id}" th:text="'Dispo : ' + ${exemplairesMap[jeu.id]}"></small>
+                            <small class="text-muted available-count" th:data-jeu-id="${jeu.id}" th:text="'Dispo : ' + ${exemplairesMap[jeu.id]}"></small>
                         </div>
                     </div>
                 </div>
