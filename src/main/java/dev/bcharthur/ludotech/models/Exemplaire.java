@@ -22,6 +22,9 @@ public class Exemplaire {
     @JoinColumn(name = "no_jeu", nullable = false)
     private Jeu jeu;
 
+    @Column(name = "etat")
+    private String etat;
+
     // Getters et setters
 
     public Integer getId() {
@@ -46,6 +49,14 @@ public class Exemplaire {
 
     public void setLouable(Boolean louable) {
         this.louable = louable;
+    }
+
+    public String getEtat() {
+        return etat;
+    }
+
+    public void setEtat(String etat) {
+        this.etat = etat;
     }
 
     public Jeu getJeu() {
