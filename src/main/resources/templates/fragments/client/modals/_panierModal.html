@@ -1,0 +1,47 @@
+<!-- templates/fragments/client/modals/_panierModal.html -->
+<div class="modal fade" id="panierModal" tabindex="-1" aria-labelledby="panierModalLabel" aria-hidden="true" th:fragment="panierModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="panierModalLabel">Mon panier</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div id="panierContent">
+                            <table class="table" th:if="${panier != null} and ${#lists.size(panier.jeux)} > 0">
+                                <thead>
+                                <tr>
+                                    <th>Jeu</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="jeu : ${panier.jeux}">
+                                    <td th:text="${jeu.titre}">Titre du jeu</td>
+                                    <td>
+                                        <button class="btn btn-danger btn-remove" th:data-jeu-id="${jeu.id}">Retirer</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div th:if="${panier == null} or ${#lists.isEmpty(panier.jeux)}">
+                                <p>Votre panier est vide.</p>
+                            </div>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reservationPanierModal" data-bs-dismiss="modal">
+                                Procéder à la réservation
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>

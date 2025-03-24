@@ -2,15 +2,14 @@
 package dev.bcharthur.ludotech.service;
 
 import dev.bcharthur.ludotech.datatable.LocationDataTable;
-import dev.bcharthur.ludotech.models.Client;
-import dev.bcharthur.ludotech.models.Location;
-import dev.bcharthur.ludotech.models.Exemplaire;
-import dev.bcharthur.ludotech.models.ReservationRequestDTO;
+import dev.bcharthur.ludotech.models.*;
 import dev.bcharthur.ludotech.repository.ExemplaireRepository;
 import dev.bcharthur.ludotech.repository.LocationRepository;
+import dev.bcharthur.ludotech.repository.PanierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -23,6 +22,9 @@ public class LocationService {
 
     @Autowired
     private ExemplaireRepository exemplaireRepository;
+
+    @Autowired
+    private PanierRepository panierRepository;
 
     public Location createLocation(Location location) {
         if (location.getExemplaires().size() > 5) {
@@ -135,4 +137,60 @@ public class LocationService {
         );
         return reservations.isEmpty();
     }
+
+    /**
+     * Réservation pour le panier du client.
+     * Cette méthode sélectionne pour chaque jeu du panier un exemplaire disponible,
+     * le marque comme non louable (louable = false) et crée une Location.
+     */
+    public Location reserverPanier(ReservationRequestDTO dto, Client client) {
+        // Récupérer le panier du client
+        Panier panier = panierRepository.findByClient(client);
+        if (panier == null || panier.getJeux().isEmpty()) {
+            throw new IllegalStateException("Le panier est vide.");
+        }
+
+        // Créer une nouvelle Location
+        Location location = new Location();
+        location.setClient(client);
+
+        // Convertir la date de début du DTO
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate startDate = LocalDate.parse(dto.getDateDebut(), formatter);
+        location.setDateDebut(startDate.atStartOfDay());
+        location.setDateRetour(startDate.plusDays(dto.getDuration()).atStartOfDay());
+
+        // Calculer le tarif global par jour : on somme le tarif de chaque jeu
+        BigDecimal totalTarifJour = panier.getJeux().stream()
+                .map(Jeu::getTarifJour)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        location.setTarifJour(totalTarifJour);
+
+        // Pour chaque jeu dans le panier, sélectionner un exemplaire disponible et le marquer comme non louable
+        Set<Exemplaire> exemplaires = new HashSet<>();
+        for (Jeu jeu : panier.getJeux()) {
+            List<Exemplaire> disponibles = exemplaireRepository.findByJeu_IdAndLouableTrue(jeu.getId());
+            if (disponibles.isEmpty()) {
+                throw new IllegalStateException("Aucun exemplaire disponible pour le jeu : " + jeu.getTitre());
+            }
+            // Sélectionner le premier exemplaire disponible
+            Exemplaire exemplaire = disponibles.get(0);
+            // Marquer cet exemplaire comme réservé (non louable)
+            exemplaire.setLouable(false);
+            // Sauvegarder la modification de l'exemplaire
+            exemplaireRepository.save(exemplaire);
+            exemplaires.add(exemplaire);
+        }
+        location.setExemplaires(exemplaires);
+
+        // Sauvegarder la location
+        Location savedLocation = locationRepository.save(location);
+
+        // Vider le panier
+        panier.getJeux().clear();
+        panierRepository.save(panier);
+
+        return savedLocation;
+    }
+
 }

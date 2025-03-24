@@ -23,11 +23,19 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
                                 <span sec:authorize="isAuthenticated()" style="margin-left: 5px;">
-                                    <button type="button" class="btn btn-success btn-louer" th:data-jeu-id="${jeu.id}" th:disabled="${exemplairesMap[jeu.id]} == 0 ? 'disabled' : null">Louer</button>
+                                    <button type="button"
+                                            class="btn btn-success btn-add-panier"
+                                            th:data-jeu-id="${jeu.id}"
+                                            th:disabled="${exemplairesMap[jeu.id]} == 0 ? 'disabled' : null">
+                                        Ajouter au panier
+                                    </button>
                                 </span>
                             </div>
                             <!-- Affichage du nombre d'exemplaires disponibles -->
-                            <small class="text-muted available-count" th:data-jeu-id="${jeu.id}" th:text="'Dispo : ' + ${exemplairesMap[jeu.id]}"></small>
+                            <small class="text-muted available-count"
+                                   th:data-jeu-id="${jeu.id}"
+                                   th:text="'Dispo : ' + ${exemplairesMap[jeu.id]}">
+                            </small>
                         </div>
                     </div>
                 </div>

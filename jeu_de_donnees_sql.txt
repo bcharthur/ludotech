@@ -1,0 +1,178 @@
+-- Insertion des genres
+INSERT INTO `genre` (`libelle`) VALUES ('Stratégie');
+INSERT INTO `genre` (`libelle`) VALUES ('Famille');
+INSERT INTO `genre` (`libelle`) VALUES ('Enquête');
+INSERT INTO `genre` (`libelle`) VALUES ('Adresse');
+INSERT INTO `genre` (`libelle`) VALUES ('Ambiance');
+INSERT INTO `genre` (`libelle`) VALUES ('Réflexion');
+INSERT INTO `genre` (`libelle`) VALUES ('Coopératif');
+INSERT INTO `genre` (`libelle`) VALUES ('Cartes');
+INSERT INTO `genre` (`libelle`) VALUES ('Mémoire');
+
+-- Insertion des jeux
+INSERT INTO `jeu` (`age_min`, `description`, `duree`, `reference`, `tarif_jour`, `titre`) VALUES
+  (6,  'Jeu d''identification avec des personnages mystérieux.',                            20, 'QUIESTCE123', 2.50, 'Qui est-ce ?'),
+  (6,  'Jeu d''alignement de pions verticalement, horizontalement ou en diagonale.',          15, 'PUISSANCE4123', 2.00, 'Puissance 4'),
+  (8,  'Jeu de stratégie de placement de bateaux et de tir.',                                  30, 'BATAILLE123', 2.00, 'Bataille Navale'),
+  (10, 'Jeu de stratégie et de placement de tuiles.',                                          45, 'CATANE123', 3.00, 'Les Colons de Catane'),
+  (7,  'Jeu d''adresse et d''équilibre avec des blocs en bois.',                             10, 'JENGA123', 2.00, 'Jenga'),
+  (8,  'Jeu de rapidité et d''observation avec des symboles.',                                15, 'DOBBLE123', 1.50, 'Dobble'),
+  (8,  'Jeu de cartes et de stratégie mathématique.',                                        20, 'UNO123', 1.50, 'UNO'),
+  (12, 'Jeu d''ambiance où il faut faire deviner des mots sans dire certains mots interdits.', 30, 'TABOO123', 2.50, 'Taboo'),
+  (10, 'Jeu de déduction coopératif avec des images pour faire deviner un mot.',               30, 'DIXIT123', 2.50, 'Dixit'),
+  (10, 'Jeu d''enquête coopératif pour résoudre un meurtre dans un manoir.',                  45, 'CLUE123', 3.00, 'Cluedo');
+
+-- Insertion des relations jeu_genre
+INSERT INTO `jeu_genre` (`jeu_id`, `genre_id`) VALUES
+  (1, 3),  -- Qui est-ce ? → Enquête
+  (2, 4),  -- Puissance 4 → Adresse
+  (3, 1),  -- Bataille Navale → Stratégie
+  (3, 2),  -- Bataille Navale → Famille
+  (4, 1),  -- Catane → Stratégie
+  (4, 2),  -- Catane → Famille
+  (5, 4),  -- Jenga → Adresse
+  (5, 2),  -- Jenga → Famille
+  (6, 4),  -- Dobble → Adresse
+  (6, 5),  -- Dobble → Ambiance
+  (7, 8),  -- UNO → Cartes
+  (7, 2),  -- UNO → Famille
+  (8, 5),  -- Taboo → Ambiance
+  (8, 6),  -- Taboo → Réflexion
+  (9, 7),  -- Dixit → Coopératif
+  (9, 8),  -- Dixit → Cartes
+  (10, 3), -- Cluedo → Enquête
+  (10, 6); -- Cluedo → Réflexion
+
+-- Insertion des exemplaires : 10 exemplaires par jeu avec des codes-barres uniques
+INSERT INTO `exemplaire` (`codebarre`, `louable`, `no_jeu`) VALUES
+  -- Jeu 1 (Qui est-ce ?) : exemplaires 1 à 10
+  ('EX00001', true, 1),
+  ('EX00002', true, 1),
+  ('EX00003', true, 1),
+  ('EX00004', true, 1),
+  ('EX00005', true, 1),
+  ('EX00006', true, 1),
+  ('EX00007', true, 1),
+  ('EX00008', true, 1),
+  ('EX00009', true, 1),
+  ('EX00010', true, 1),
+
+  -- Jeu 2 (Puissance 4) : exemplaires 11 à 20
+  ('EX00011', true, 2),
+  ('EX00012', true, 2),
+  ('EX00013', true, 2),
+  ('EX00014', true, 2),
+  ('EX00015', true, 2),
+  ('EX00016', true, 2),
+  ('EX00017', true, 2),
+  ('EX00018', true, 2),
+  ('EX00019', true, 2),
+  ('EX00020', true, 2),
+
+  -- Jeu 3 (Bataille Navale) : exemplaires 21 à 30
+  ('EX00021', true, 3),
+  ('EX00022', true, 3),
+  ('EX00023', true, 3),
+  ('EX00024', true, 3),
+  ('EX00025', true, 3),
+  ('EX00026', true, 3),
+  ('EX00027', true, 3),
+  ('EX00028', true, 3),
+  ('EX00029', true, 3),
+  ('EX00030', true, 3),
+
+  -- Jeu 4 (Les Colons de Catane) : exemplaires 31 à 40
+  ('EX00031', true, 4),
+  ('EX00032', true, 4),
+  ('EX00033', true, 4),
+  ('EX00034', true, 4),
+  ('EX00035', true, 4),
+  ('EX00036', true, 4),
+  ('EX00037', true, 4),
+  ('EX00038', true, 4),
+  ('EX00039', true, 4),
+  ('EX00040', true, 4),
+
+  -- Jeu 5 (Jenga) : exemplaires 41 à 50
+  ('EX00041', true, 5),
+  ('EX00042', true, 5),
+  ('EX00043', true, 5),
+  ('EX00044', true, 5),
+  ('EX00045', true, 5),
+  ('EX00046', true, 5),
+  ('EX00047', true, 5),
+  ('EX00048', true, 5),
+  ('EX00049', true, 5),
+  ('EX00050', true, 5),
+
+  -- Jeu 6 (Dobble) : exemplaires 51 à 60
+  ('EX00051', true, 6),
+  ('EX00052', true, 6),
+  ('EX00053', true, 6),
+  ('EX00054', true, 6),
+  ('EX00055', true, 6),
+  ('EX00056', true, 6),
+  ('EX00057', true, 6),
+  ('EX00058', true, 6),
+  ('EX00059', true, 6),
+  ('EX00060', true, 6),
+
+  -- Jeu 7 (UNO) : exemplaires 61 à 70
+  ('EX00061', true, 7),
+  ('EX00062', true, 7),
+  ('EX00063', true, 7),
+  ('EX00064', true, 7),
+  ('EX00065', true, 7),
+  ('EX00066', true, 7),
+  ('EX00067', true, 7),
+  ('EX00068', true, 7),
+  ('EX00069', true, 7),
+  ('EX00070', true, 7),
+
+  -- Jeu 8 (Taboo) : exemplaires 71 à 80
+  ('EX00071', true, 8),
+  ('EX00072', true, 8),
+  ('EX00073', true, 8),
+  ('EX00074', true, 8),
+  ('EX00075', true, 8),
+  ('EX00076', true, 8),
+  ('EX00077', true, 8),
+  ('EX00078', true, 8),
+  ('EX00079', true, 8),
+  ('EX00080', true, 8),
+
+  -- Jeu 9 (Dixit) : exemplaires 81 à 90
+  ('EX00081', true, 9),
+  ('EX00082', true, 9),
+  ('EX00083', true, 9),
+  ('EX00084', true, 9),
+  ('EX00085', true, 9),
+  ('EX00086', true, 9),
+  ('EX00087', true, 9),
+  ('EX00088', true, 9),
+  ('EX00089', true, 9),
+  ('EX00090', true, 9),
+
+  -- Jeu 10 (Cluedo) : exemplaires 91 à 100
+  ('EX00091', true, 10),
+  ('EX00092', true, 10),
+  ('EX00093', true, 10),
+  ('EX00094', true, 10),
+  ('EX00095', true, 10),
+  ('EX00096', true, 10),
+  ('EX00097', true, 10),
+  ('EX00098', true, 10),
+  ('EX00099', true, 10),
+  ('EX00100', true, 10);
+
+-- Mise à jour des images pour les jeux
+UPDATE jeu SET image = 'https://m.media-amazon.com/images/I/81BEkByniIL.__AC_SX300_SY300_QL70_ML2_.jpg' WHERE no_jeu = 1;
+UPDATE jeu SET image = 'https://m.media-amazon.com/images/I/815vtnpD1kL.__AC_SX300_SY300_QL70_ML2_.jpg' WHERE no_jeu = 2;
+UPDATE jeu SET image = 'https://m.media-amazon.com/images/I/61-O5bXXc8L._AC_SY450_.jpg' WHERE no_jeu = 3;
+UPDATE jeu SET image = 'https://m.media-amazon.com/images/I/81wGeFJggGL.__AC_SX300_SY300_QL70_ML2_.jpg' WHERE no_jeu = 4;
+UPDATE jeu SET image = 'https://m.media-amazon.com/images/I/81-cKwx9+lL._AC_UL320_.jpg' WHERE no_jeu = 5;
+UPDATE jeu SET image = 'https://m.media-amazon.com/images/I/71tP+giUFxL._AC_SY300_SX300_.jpg' WHERE no_jeu = 6;
+UPDATE jeu SET image = 'https://m.media-amazon.com/images/I/71IC1KLr+uL._AC_SY300_SX300_.jpg' WHERE no_jeu = 7;
+UPDATE jeu SET image = 'https://m.media-amazon.com/images/I/61yQh6QjdsL.__AC_SX300_SY300_QL70_ML2_.jpg' WHERE no_jeu = 8;
+UPDATE jeu SET image = 'https://m.media-amazon.com/images/I/81cW+G53nJL._AC_SY300_SX300_.jpg' WHERE no_jeu = 9;
+UPDATE jeu SET image = 'https://m.media-amazon.com/images/I/71CVg+tSYuL._AC_SY300_SX300_.jpg' WHERE no_jeu = 10;

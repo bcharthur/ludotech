@@ -64,6 +64,12 @@
                                 <button type="submit" class="btn"><i class="fa-solid fa-right-from-bracket"></i> Se déconnecter</button>
                             </form>
                         </li>
+                        <li sec:authorize="!hasRole('admin') && !hasRole('employe')">
+                            <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#panierModal">
+                                <i class="fa-solid fa-cart-shopping"></i> Panier
+                            </a>
+                        </li>
+
                     </ul>
                 </li>
             </ul>
@@ -113,6 +119,10 @@
 <div th:replace="fragments/client/modals/_detailJeu :: detailJeuModal"></div>
 <div th:replace="fragments/client/modals/_reservationModal :: reservationModal"></div>
 <div th:replace="fragments/client/modals/_successReservModal :: successReservModal"></div>
+<div th:replace="fragments/client/modals/_panierModal :: panierModal"></div>
+<div th:replace="fragments/client/modals/_successPanierModal :: successPanierModal"></div>
+<div th:replace="fragments/client/modals/_reservationPanierModal :: reservationPanierModal"></div>
+
 
 
 
@@ -142,6 +152,7 @@
     function connectWebSocket() {
         var socket = new SockJS('/ws');
         stompClient = Stomp.over(socket);
+        stompClient.debug = function() {};
         stompClient.connect({}, function (frame) {
             console.log('Connecté : ' + frame);
             // Pour chaque jeu affiché, abonnez-vous à son topic
@@ -198,16 +209,9 @@
 <script src="/js/admin/exemplaire/add.js"></script>
 
 <script src="/js/client/details.js"></script>
-
-<!--<script src="/js/client/location/add.js"></script>-->
-<!--<script src="/js/client/location/datatable.js"></script>-->
-<!--<script src="/js/client/location/delete.js"></script>-->
-<!--<script src="/js/client/location/edit.js"></script>-->
+<script src="/js/client/panier.js"></script>
 <script src="/js/client/location/reservation.js"></script>
-
-
-
-
+<script src="/js/client/reservationPanier.js"></script>
 
 <script src="/js/home/login.js"></script>
 <script src="/js/home/register.js"></script>

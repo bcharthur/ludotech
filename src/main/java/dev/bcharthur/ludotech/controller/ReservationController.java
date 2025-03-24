@@ -69,4 +69,27 @@ public class ReservationController {
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    /**
+     * Réservation d'un lot de jeux (panier) pour le client connecté.
+     */
+    @PostMapping("/reserverPanier")
+    public ResponseEntity<Map<String, Object>> reserverPanier(@RequestBody ReservationRequestDTO dto, Principal principal) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            Client client = clientService.findByEmail(principal.getName());
+            Location location = locationService.reserverPanier(dto, client);
+            response.put("message", "Réservation du panier effectuée avec succès !");
+            response.put("location", location);
+            return new ResponseEntity<>(response, HttpStatus.CREATED);
+        } catch (IllegalStateException e) {
+            response.put("error", "Aucun exemplaire disponible pour la période demandée.");
+            response.put("details", e.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.CONFLICT);
+        } catch (Exception e) {
+            response.put("error", "Une erreur est survenue lors de la réservation.");
+            response.put("details", e.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

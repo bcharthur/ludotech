@@ -1,0 +1,27 @@
+<!-- templates/fragments/client/modals/_reservationPanierModal.html -->
+<div class="modal fade" id="reservationPanierModal" tabindex="-1" aria-labelledby="reservationPanierModalLabel" aria-hidden="true" th:fragment="reservationPanierModal">
+    <div class="modal-dialog">
+        <form id="reservationPanierForm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reservationPanierModalLabel">Réserver votre panier</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="panierReservationDate">Date de début</label>
+                        <input type="text" id="panierReservationDate" name="dateDebut" class="form-control" autocomplete="off">
+                    </div>
+                    <div class="form-group mt-2">
+                        <label for="panierDuration">Durée (en jours)</label>
+                        <input type="number" id="panierDuration" name="duration" class="form-control" min="1" max="21" value="7">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Valider la réservation</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
