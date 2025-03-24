@@ -15,8 +15,8 @@ import jakarta.persistence.*;
     private String telephone;
 
     // Relations
-    @OneToOne
-    @JoinColumn(name = "exemplaire_id", referencedColumnName = "no_exemplaire", unique = true)
+    @OneToOne(optional = true)
+    @JoinColumn(name = "exemplaire_id", referencedColumnName = "no_exemplaire", unique = true, nullable = true)
     private Exemplaire exemplaire;
 
     // Getters et setters
