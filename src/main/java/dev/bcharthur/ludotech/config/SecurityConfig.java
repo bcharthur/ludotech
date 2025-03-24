@@ -36,6 +36,8 @@ public class SecurityConfig {
                         // Règles d'accès admin
                         .requestMatchers("/admin/**")
                         .hasAnyRole("admin", "employe")
+                        .requestMatchers("/panier", "/api/panier/**").authenticated()
+
                         .anyRequest().authenticated()
                 )
                 // Configuration du formLogin

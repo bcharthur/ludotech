@@ -3,9 +3,11 @@ package dev.bcharthur.ludotech.controller;
 import dev.bcharthur.ludotech.models.Client;
 import dev.bcharthur.ludotech.models.Genre;
 import dev.bcharthur.ludotech.models.Jeu;
+import dev.bcharthur.ludotech.models.Panier;
 import dev.bcharthur.ludotech.service.ClientService;
 import dev.bcharthur.ludotech.service.GenreService;
 import dev.bcharthur.ludotech.service.JeuService;
+import dev.bcharthur.ludotech.service.PanierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -32,6 +34,9 @@ public class HomeController {
 
     @Autowired
     private JeuService jeuService;
+
+    @Autowired
+    private PanierService panierService;
 
     @GetMapping("/api/genres")
     @ResponseBody
@@ -85,5 +90,17 @@ public class HomeController {
         }
 
         return "index";
+    }
+
+    @GetMapping("/panier")
+    public String panier(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null && auth.isAuthenticated() && auth.getPrincipal() instanceof User) {
+            String email = ((User) auth.getPrincipal()).getUsername();
+            Client client = clientService.findByEmail(email);
+            Panier panier = panierService.getPanierByClient(client);
+            model.addAttribute("panier", panier);
+        }
+        return "client/panier";
     }
 }
