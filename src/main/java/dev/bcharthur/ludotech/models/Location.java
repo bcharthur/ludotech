@@ -1,17 +1,10 @@
 package dev.bcharthur.ludotech.models;
 
-import dev.bcharthur.ludotech.models.Client;
-import dev.bcharthur.ludotech.models.Exemplaire;
 import jakarta.persistence.*;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.math.BigDecimal; import java.time.LocalDateTime; import java.util.HashSet; import java.util.Set;
 
-@Entity
-@Table(name = "location")
-public class Location {
+@Entity @Table(name = "location") public class Location {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,12 +20,15 @@ public class Location {
     @Column(name = "tarif_jour", nullable = false)
     private BigDecimal tarifJour;
 
-    // Chaque location est liée à un client
+    // Soit un client en ligne, soit un client magasin
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "client_id", nullable = false)
+    @JoinColumn(name = "client_id", nullable = true)
     private Client client;
 
-    // Une location peut concerner plusieurs exemplaires (maximum 5)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "client_magasin_id", nullable = true)
+    private ClientMagasin clientMagasin;
+
     @ManyToMany
     @JoinTable(
             name = "location_exemplaire",
@@ -41,10 +37,7 @@ public class Location {
     )
     private Set<Exemplaire> exemplaires = new HashSet<>();
 
-    // Constructeurs, getters et setters
-
-    public Location() {
-    }
+// --- GETTERS & SETTERS ---
 
     public Long getId() {
         return id;
@@ -84,6 +77,14 @@ public class Location {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public ClientMagasin getClientMagasin() {
+        return clientMagasin;
+    }
+
+    public void setClientMagasin(ClientMagasin clientMagasin) {
+        this.clientMagasin = clientMagasin;
     }
 
     public Set<Exemplaire> getExemplaires() {

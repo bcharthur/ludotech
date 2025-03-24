@@ -1,4 +1,4 @@
-// service/ClientMagasinService.java
+// ClientMagasinService.java
 package dev.bcharthur.ludotech.service;
 
 import dev.bcharthur.ludotech.models.ClientMagasin;
@@ -23,12 +23,21 @@ public class ClientMagasinService {
         return clientMagasinRepository.findAll();
     }
 
-    public ClientMagasin create(ClientMagasin fiche, int exemplaireId) {
-        if (clientMagasinRepository.existsByExemplaire_Id(exemplaireId)) {
-            throw new IllegalStateException("Cet exemplaire est déjà associé à un autre client magasin.");
+    public ClientMagasin create(ClientMagasin fiche, Integer exemplaireId) {
+        if (exemplaireId != null) {
+            if (clientMagasinRepository.existsByExemplaire_Id(exemplaireId)) {
+                throw new IllegalStateException("Cet exemplaire est déjà associé à un autre client magasin.");
+            }
+            Exemplaire ex = exemplaireRepository.findById(exemplaireId)
+                    .orElseThrow(() -> new IllegalStateException("Exemplaire introuvable."));
+            fiche.setExemplaire(ex);
+        } else {
+            fiche.setExemplaire(null);
         }
-        Exemplaire ex = exemplaireRepository.findById(exemplaireId).orElseThrow();
-        fiche.setExemplaire(ex);
         return clientMagasinRepository.save(fiche);
+    }
+
+    public List<ClientMagasin> getAllUsers() {
+        return clientMagasinRepository.findAll();
     }
 }

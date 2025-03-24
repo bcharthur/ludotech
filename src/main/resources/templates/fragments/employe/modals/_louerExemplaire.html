@@ -1,0 +1,26 @@
+<!-- fragments/employe/modals/_louerExemplaire.html -->
+<div class="modal fade" id="modalLouerExemplaire" tabindex="-1" aria-labelledby="modalLouerExemplaireLabel" aria-hidden="true" th:fragment="modalLouerExemplaire">
+    <div class="modal-dialog">
+        <form id="formLouerClientMagasin">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Louer à un client magasin</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="selectClientMagasin" class="form-label">Sélectionnez un client :</label>
+                        <select id="selectClientMagasin" class="form-select" required>
+                            <option value="">-- Choisissez un client --</option>
+                            <!-- Les options seront ajoutées dynamiquement via AJAX -->
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Louer</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

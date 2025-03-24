@@ -1,4 +1,4 @@
-// controller/ClientMagasinController.java
+// ClientMagasinController.java
 package dev.bcharthur.ludotech.controller;
 
 import dev.bcharthur.ludotech.models.ClientMagasin;
@@ -21,7 +21,8 @@ public class ClientMagasinController {
     }
 
     @PostMapping("/add")
-    public ClientMagasin add(@RequestBody ClientMagasin fiche, @RequestParam("exemplaireId") int exemplaireId) {
+    public ClientMagasin add(@RequestBody ClientMagasin fiche,
+                             @RequestParam(value = "exemplaireId", required = false) Integer exemplaireId) {
         return service.create(fiche, exemplaireId);
     }
 }
