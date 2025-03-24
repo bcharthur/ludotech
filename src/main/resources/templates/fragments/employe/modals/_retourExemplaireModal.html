@@ -1,0 +1,28 @@
+<div class="modal fade" id="retourExemplaireModal" tabindex="-1" aria-labelledby="retourExemplaireModalLabel" aria-hidden="true" th:fragment="retourExemplaireModal">
+    <div class="modal-dialog">
+        <form id="formRetourExemplaire">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Retour d'exemplaire</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="barcode" id="retourBarcode">
+
+                    <div class="mb-3">
+                        <label for="etat" class="form-label">État de l'exemplaire</label>
+                        <select class="form-select" id="etat" name="etat" required>
+                            <option value="neuf">Neuf</option>
+                            <option value="correct" selected>Correct</option>
+                            <option value="inlouable">Inlouable</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Valider le retour</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

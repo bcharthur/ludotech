@@ -10,4 +10,6 @@ import java.util.List;
 public interface ExemplaireRepository extends JpaRepository<Exemplaire, Integer> {
     int countByJeu_IdAndLouableTrue(Integer jeuId);
     List<Exemplaire> findByJeu_IdAndLouableTrue(Integer jeuId);
+    Exemplaire findByCodebarreAndLouableTrue(String codebarre);
+    Exemplaire findByCodebarre(String codebarre);
 }
