@@ -1,0 +1,33 @@
+<!-- Modal Ajouter fiche client magasin -->
+<div class="modal fade" id="addClientMagasinModal" tabindex="-1" aria-labelledby="addClientMagasinModalLabel" aria-hidden="true" th:fragment="ajoutClientMagasinModal">
+    <div class="modal-dialog">
+        <form id="addClientMagasinForm" class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addClientMagasinModalLabel">Nouvelle fiche client (magasin)</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" name="exemplaireId" id="ficheExemplaireId" />
+                <div class="mb-3">
+                    <label>Prénom</label>
+                    <input type="text" class="form-control" name="prenom" required>
+                </div>
+                <div class="mb-3">
+                    <label>Nom</label>
+                    <input type="text" class="form-control" name="nom" required>
+                </div>
+                <div class="mb-3">
+                    <label>Email</label>
+                    <input type="email" class="form-control" name="email">
+                </div>
+                <div class="mb-3">
+                    <label>Téléphone</label>
+                    <input type="text" class="form-control" name="telephone">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success">Ajouter</button>
+            </div>
+        </form>
+    </div>
+</div>

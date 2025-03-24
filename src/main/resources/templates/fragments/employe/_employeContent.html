@@ -58,6 +58,11 @@
                 <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addJeuModal">
                     Ajouter Jeu
                 </button>
+                <!-- Bouton (ex: dans la ligne du tableau) -->
+                <button class="btn btn-outline-secondary btn-sm btnAddClientMagasin" data-exemplaire-id="1">
+                    Ajouter fiche client magasin
+                </button>
+
                 <div class="table-responsive">
                     <table id="jeuxTable" class="table table-striped table-bordered mt-4" style="width:100%">
                         <thead>
@@ -77,6 +82,11 @@
                     </table>
                 </div>
             </div>
+
+
+
+
+
             <!-- Genres Tab -->
             <div class="tab-pane fade" id="genres" role="tabpanel" aria-labelledby="genres-tab">
                 <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addGenreModal">
@@ -97,6 +107,25 @@
             </div>
             <!-- Exemplaires Tab -->
             <div class="tab-pane fade" id="exemplaires" role="tabpanel" aria-labelledby="exemplaires-tab">
+
+                <div class="card border-info mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title text-info"><i class="fa-solid fa-barcode"></i> Retour d'exemplaire</h5>
+                        <p class="card-text">
+                            Pour faire un retour client :
+                        <ol class="mb-0">
+                            <li>Scannez le <strong>code-barres</strong> de l'exemplaire dans la barre de recherche du tableau.</li>
+                            <li>Cliquez sur le bouton <strong>"Retour"</strong> dans la ligne correspondante.</li>
+                            <li>Choisissez l'<strong>état</strong> du jeu dans la pop-up (neuf, correct ou inlouable), puis validez.</li>
+                        </ol>
+                        </p>
+                        <div class="mb-3">
+                            <label for="barcodeFilter" class="form-label">Rechercher par code-barres :</label>
+                            <input type="text" id="barcodeFilter" class="form-control" placeholder="EX000XX...">
+                        </div>
+                    </div>
+                </div>
+
                 <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addExemplaireModal">
                     Ajouter Exemplaire
                 </button>
