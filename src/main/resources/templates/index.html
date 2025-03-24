@@ -59,7 +59,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <form method="post" action="/logout">
+                            <form method="post" class="nav-link" action="/logout">
                                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                                 <button type="submit" class="btn"><i class="fa-solid fa-right-from-bracket"></i> Se déconnecter</button>
                             </form>
@@ -121,6 +121,7 @@
 <div th:replace="fragments/client/modals/_successReservModal :: successReservModal"></div>
 <div th:replace="fragments/client/modals/_panierModal :: panierModal"></div>
 <div th:replace="fragments/client/modals/_successPanierModal :: successPanierModal"></div>
+<div th:replace="fragments/client/modals/_errorModal :: errorModal"></div>
 <div th:replace="fragments/client/modals/_reservationPanierModal :: reservationPanierModal"></div>
 
 
@@ -157,17 +158,23 @@
             console.log('Connecté : ' + frame);
             // Pour chaque jeu affiché, abonnez-vous à son topic
             $('.available-count').each(function() {
-                var $element = $(this);
-                var jeuId = $element.data('jeu-id');
-                stompClient.subscribe('/topic/availability/' + jeuId, function (message) {
-                    // Met à jour le compteur
-                    $element.text('Dispo : ' + message.body);
-                    // Active/désactive le bouton "Louer" en fonction du nombre d'exemplaires disponibles
-                    var $btn = $('.btn-louer[data-jeu-id="' + jeuId + '"]');
-                    if (parseInt(message.body) <= 0) {
-                        $btn.prop("disabled", true);
+                let $countElem = $(this);
+                let jeuId = $countElem.data('jeu-id');
+                stompClient.subscribe('/topic/availability/' + jeuId, function(message) {
+                    let availableCount = parseInt(message.body);
+                    // Met à jour le texte du compteur
+                    $countElem.text('Dispo : ' + availableCount);
+                    // Met à jour dynamiquement le bouton "Ajouter au panier" associé
+                    let $btn = $('.btn-add-panier[data-jeu-id="' + jeuId + '"]');
+                    if (availableCount <= 0) {
+                        $btn.prop('disabled', true);
+                        // Optionnel : ajouter un style ou un badge pour l'indiquer
+                        if ($btn.next('.badge-not-available').length === 0) {
+                            $btn.after(' <span class="badge bg-danger badge-not-available">Plus disponible !</span>');
+                        }
                     } else {
-                        $btn.prop("disabled", false);
+                        $btn.prop('disabled', false);
+                        $btn.next('.badge-not-available').remove();
                     }
                 });
             });

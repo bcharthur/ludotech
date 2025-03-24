@@ -79,7 +79,7 @@ public class ReservationController {
         try {
             Client client = clientService.findByEmail(principal.getName());
             Location location = locationService.reserverPanier(dto, client);
-            response.put("message", "Réservation du panier effectuée avec succès !");
+            response.put("message", "Réservation effectuée avec succès !");
             response.put("location", location);
             return new ResponseEntity<>(response, HttpStatus.CREATED);
         } catch (IllegalStateException e) {
@@ -92,4 +92,5 @@ public class ReservationController {
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 }
