@@ -115,8 +115,10 @@ public class ReservationController {
         }
 
         try {
+            // Récupération du client magasin
             ClientMagasin client = clientMagasinRepository.findById(clientId)
                     .orElseThrow(() -> new RuntimeException("Client introuvable"));
+            // Récupération de l'exemplaire
             Exemplaire exemplaire = exemplaireRepository.findById(exemplaireId)
                     .orElseThrow(() -> new RuntimeException("Exemplaire introuvable"));
 
@@ -124,6 +126,7 @@ public class ReservationController {
                 return ResponseEntity.status(HttpStatus.CONFLICT).body("Exemplaire déjà loué.");
             }
 
+            // Créer une nouvelle location
             Location location = new Location();
             location.setClientMagasin(client);
             location.setDateDebut(LocalDateTime.now());
@@ -131,15 +134,23 @@ public class ReservationController {
             location.setTarifJour(exemplaire.getJeu().getTarifJour());
             location.getExemplaires().add(exemplaire);
 
+            // Mettre à jour l'exemplaire pour qu'il ne soit plus louable
             exemplaire.setLouable(false);
             exemplaireRepository.save(exemplaire);
+
+            // Sauvegarder la location
             locationRepository.save(location);
+
+            // Mettre à jour le client magasin pour lui associer l'exemplaire loué
+            client.setExemplaire(exemplaire);
+            clientMagasinRepository.save(client);
 
             return ResponseEntity.ok("Exemplaire loué avec succès !");
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Erreur : " + e.getMessage());
         }
     }
+
 
 
 }

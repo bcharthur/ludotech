@@ -1,3 +1,4 @@
+// static/js/admin/client-magasin/datatable.js
 $(document).ready(function () {
     if ($('#clientsMagasinTable').length) {
         $('#clientsMagasinTable').DataTable({
@@ -14,8 +15,12 @@ $(document).ready(function () {
                 {
                     data: 'exemplaire',
                     title: 'Exemplaire',
-                    render: function(data) {
-                        return data ? data.codebarre : '-';
+                    render: function (data, type, row) {
+                        if (data != null) {
+                            // Affiche le code-barres et, si souhaité, le titre du jeu associé
+                            return data.codebarre + ' (' + (data.jeu ? data.jeu.titre : '') + ')';
+                        }
+                        return 'Aucun';
                     }
                 },
                 {
