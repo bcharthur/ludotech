@@ -94,10 +94,13 @@
 <div th:replace="fragments/modals/_register :: registerModal"></div>
 <div th:replace="fragments/modals/_succes :: registerSuccessModal"></div>
 
+<div th:replace="fragments/modals/_successModal :: successModal"></div>
+
+<div sec:authorize="hasRole('admin')">
 <!-- Inclusion des modals d'édition et de suppression -->
 <div th:replace="fragments/admin/user/_editUser :: editUserModal"></div>
 <div th:replace="fragments/admin/user/_deleteUser :: deleteUserModal"></div>
-<div th:replace="fragments/admin/user/_successModal :: successModal"></div>
+
 
 
 <!-- Inclusion des modals d'édition et de suppression -->
@@ -115,10 +118,17 @@
 <div th:replace="fragments/admin/exemplaire/_deleteExemplaire :: deleteExemplaireModal"></div>
 <div th:replace="fragments/admin/exemplaire/_addExemplaire :: addExemplaireModal"></div>
 
+</div>
+
+
+<div sec:authorize="hasRole('employe')">
 <div th:replace="fragments/employe/modals/_retourExemplaireModal :: retourExemplaireModal"></div>
 <div th:replace="fragments/employe/modals/_ajoutClientMagasinModal :: ajoutClientMagasinModal"></div>
 <div th:replace="fragments/employe/modals/_louerExemplaire :: modalLouerExemplaire"></div>
 
+<div th:replace="fragments/client-magasin/_editClientMagasinModal :: editClientMagasinModal"></div>
+<div th:replace="fragments/client-magasin/_deleteClientMagasinModal :: deleteClientMagasinModal"></div>
+</div>
 
 <!-- Inclusion des details -->
 <div th:replace="fragments/client/modals/_detailJeu :: detailJeuModal"></div>

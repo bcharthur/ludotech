@@ -1,63 +1,50 @@
 $(document).ready(function() {
-    // Lorsque l'on clique sur un bouton .btnEdit, charger les données du client
-    $('#usersTable').on('click', '.btnEdit', function() {
+    // Lorsqu'on clique sur un bouton d'édition, charger les données de la fiche client magasin
+    $('#clientsMagasinTable').on('click', '.btnEdit', function() {
         const clientId = $(this).data('id');
         $.ajax({
-            url: '/admin/client/' + clientId,
+            url: '/api/client-magasin/' + clientId,
             type: 'GET',
             success: function(client) {
-                // Remplir les champs du formulaire
-                $('#editUserId').val(client.id);
-                $('#editFirstName').val(client.firstName);
-                $('#editLastName').val(client.lastName);
+                // Remplir le formulaire d'édition
+                $('#editClientMagasinId').val(client.id);
+                $('#editPrenom').val(client.prenom);
+                $('#editNom').val(client.nom);
                 $('#editEmail').val(client.email);
-                $('#editPhone').val(client.phone);
-
-                // Remplir les champs d'adresse
-                $('#editStreet').val(client.adresse ? client.adresse.street : '');
-                $('#editCity').val(client.adresse ? client.adresse.city : '');
-                $('#editPostalCode').val(client.adresse ? client.adresse.postalCode : '');
-                $('#editCountry').val(client.adresse ? client.adresse.country : '');
-
-                // Ouvrir la modal
-                $('#editUserModal').modal('show');
+                $('#editTelephone').val(client.telephone);
+                // Ouvrir la modal d'édition
+                $('#editClientMagasinModal').modal('show');
             },
             error: function() {
-                alert("Impossible de récupérer les informations du client.");
+                alert("Erreur lors de la récupération des informations du client magasin.");
             }
         });
     });
 
     // Lorsque le formulaire d'édition est soumis
-    $('#editUserForm').on('submit', function(e) {
+    $('#editClientMagasinForm').on('submit', function(e) {
         e.preventDefault();
         const clientData = {
-            id: $('#editUserId').val(),
-            firstName: $('#editFirstName').val(),
-            lastName: $('#editLastName').val(),
+            id: $('#editClientMagasinId').val(),
+            prenom: $('#editPrenom').val(),
+            nom: $('#editNom').val(),
             email: $('#editEmail').val(),
-            phone: $('#editPhone').val(),
-            adresse: {
-                street: $('#editStreet').val(),
-                city: $('#editCity').val(),
-                postalCode: $('#editPostalCode').val(),
-                country: $('#editCountry').val()
-            }
+            telephone: $('#editTelephone').val()
         };
 
         $.ajax({
-            url: '/admin/client/edit',
+            url: '/api/client-magasin/edit',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(clientData),
             success: function(response) {
-                $('#editUserModal').modal('hide');
-                $('#successModalMessage').text(response);
+                $('#editClientMagasinModal').modal('hide');
+                $('#successModalMessage').text("Fiche client magasin modifiée avec succès !");
                 $('#successModal').modal('show');
-                $('#usersTable').DataTable().ajax.reload(null, false);
+                $('#clientsMagasinTable').DataTable().ajax.reload(null, false);
             },
             error: function(xhr) {
-                alert("Erreur lors de la modification du client : " + xhr.responseText);
+                alert("Erreur lors de la modification : " + xhr.responseText);
             }
         });
     });

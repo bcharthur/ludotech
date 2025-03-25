@@ -1,32 +1,26 @@
 $(document).ready(function() {
-    let currentUserIdToDelete = null;
+    let currentClientIdToDelete = null;
 
-    // Lorsque l'on clique sur un bouton .btnDelete
+    // Lorsqu'on clique sur un bouton de suppression, stocker l'ID et ouvrir la modal de confirmation
     $('#clientsMagasinTable').on('click', '.btnDelete', function() {
-        currentUserIdToDelete = $(this).data('id');
-        // Ouvrir la modal de confirmation
-        $('#deleteUserModal').modal('show');
+        currentClientIdToDelete = $(this).data('id');
+        $('#deleteClientMagasinModal').modal('show');
     });
 
     // Lorsque l'utilisateur confirme la suppression
-    $('#confirmDeleteButton').on('click', function() {
-        if (!currentUserIdToDelete) return;
+    $('#confirmDeleteClientMagasinButton').on('click', function() {
+        if (!currentClientIdToDelete) return;
 
         $.ajax({
-            url: '/employe/client/' + currentUserIdToDelete,
+            url: '/api/client-magasin/' + currentClientIdToDelete,
             type: 'DELETE',
             success: function(response) {
-                // Fermer la modal de confirmation de suppression
-                $('#deleteUserModal').modal('hide');
-
-                // Afficher la modal de succès
+                $('#deleteClientMagasinModal').modal('hide');
                 $('#successModalMessage').text(response);
                 $('#successModal').modal('show');
 
-                // Rafraîchir le DataTable
-                $('#usersTable').DataTable().ajax.reload(null, false);
+                $('#clientsMagasinTable').DataTable().ajax.reload(null, false);
             },
-
             error: function(xhr) {
                 alert("Erreur lors de la suppression : " + xhr.responseText);
             }
