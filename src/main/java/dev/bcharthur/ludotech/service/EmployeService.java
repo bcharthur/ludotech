@@ -4,6 +4,7 @@ import dev.bcharthur.ludotech.models.Client;
 import dev.bcharthur.ludotech.models.Exemplaire;
 import dev.bcharthur.ludotech.models.Location;
 import dev.bcharthur.ludotech.models.ReturnRequestDTO;
+import dev.bcharthur.ludotech.repository.ClientMagasinRepository;
 import dev.bcharthur.ludotech.repository.ExemplaireRepository;
 import dev.bcharthur.ludotech.repository.LocationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,10 @@ public class EmployeService {
 
     @Autowired
     private LocationRepository locationRepository;
+
+
+    @Autowired
+    private ClientMagasinRepository clientMagasinRepository;
 
     /**
      * Réserver un exemplaire en se basant sur son code barre pour un client donné.
@@ -58,14 +63,25 @@ public class EmployeService {
         if (exemplaire == null) {
             throw new IllegalStateException("Exemplaire non trouvé.");
         }
-        exemplaire.setEtat(dto.getEtat()); // Mise à jour de l'état
+
+        // Mise à jour de l'état
+        exemplaire.setEtat(dto.getEtat());
         // Si l'exemplaire est en bon état, il devient louable, sinon il reste indisponible
         if ("neuf".equalsIgnoreCase(dto.getEtat()) || "correct".equalsIgnoreCase(dto.getEtat())) {
             exemplaire.setLouable(true);
         } else {
             exemplaire.setLouable(false);
         }
-        return exemplaireRepository.save(exemplaire);
+        Exemplaire updatedExemplaire = exemplaireRepository.save(exemplaire);
+
+        // Si un client magasin est rattaché à cet exemplaire, retirer la liaison
+        clientMagasinRepository.findByExemplaire_Id(updatedExemplaire.getId())
+                .ifPresent(clientMagasin -> {
+                    clientMagasin.setExemplaire(null);
+                    clientMagasinRepository.save(clientMagasin);
+                });
+
+        return updatedExemplaire;
     }
 
     /**
