@@ -1,4 +1,3 @@
-// static/js/admin/exemplaire/datatable.js
 $(document).ready(function() {
     const table = $('#exemplairesTable').DataTable({
         ajax: {
@@ -27,45 +26,54 @@ $(document).ready(function() {
                 title: 'Actions',
                 render: function(data, type, row) {
                     let buttons = '';
-                    if (!row.louable) {
-                        buttons += '<button class="btn btn-primary btn-sm btn-return" data-codebarre="'+row.codebarre+'">Retour</button> ';
+                    // Si l'exemplaire est louable, affiche le bouton "Louer" pour rattacher à un client magasin
+                    if (row.louable) {
+                        buttons += '<button class="btn btn-success btn-sm btn-louer-client-magasin" data-exemplaire-id="' + row.id + '">Louer</button> ';
                     } else {
-                        buttons += '<button class="btn btn-success btn-sm btn-louer-client-magasin" data-exemplaire-id="'+row.id+'">Louer</button> ';
+                        // Sinon, affiche le bouton de retour (si non louable)
+                        buttons += '<button class="btn btn-primary btn-sm btn-return" data-codebarre="' + row.codebarre + '">Retour</button> ';
                     }
-                    buttons += '<button class="btn btn-warning btn-sm btnEdit" data-id="'+row.id+'"><i class="fa-solid fa-pen-to-square"></i></button> ';
-                    buttons += '<button class="btn btn-danger btn-sm btnDelete" data-id="'+row.id+'"><i class="fa-solid fa-trash"></i></button>';
+                    buttons += '<button class="btn btn-warning btn-sm btnEdit" data-id="' + row.id + '"><i class="fa-solid fa-pen-to-square"></i></button> ';
+                    buttons += '<button class="btn btn-danger btn-sm btnDelete" data-id="' + row.id + '"><i class="fa-solid fa-trash"></i></button>';
                     return buttons;
                 }
             }
         ]
     });
 
+    // Filtre par code-barres
     $('#barcodeFilter').on('keyup', function () {
         table.column(1).search(this.value).draw();
     });
 
-    // Gestion du clic sur "Louer"
+    // Gestion du clic sur le bouton "Louer" pour un client magasin
     $('#exemplairesTable').on('click', '.btn-louer-client-magasin', function() {
         const exemplaireId = $(this).data('exemplaire-id');
+        // On stocke l'ID de l'exemplaire dans un attribut data de la modal
         $('#modalLouerExemplaire').data('exemplaire-id', exemplaireId);
         $('#modalLouerExemplaire').modal('show');
     });
 
-    // Soumission de la location pour un client magasin
+    // Gestion de la soumission du formulaire de location pour un client magasin
     $('#formLouerClientMagasin').on('submit', function(e){
         e.preventDefault();
         const clientId = $('#selectClientMagasin').val();
         const exemplaireId = $('#modalLouerExemplaire').data('exemplaire-id');
 
+        if (!clientId) {
+            alert("Veuillez sélectionner un client.");
+            return;
+        }
+
         $.ajax({
-            url: '/api/employe/louer-exemplaire',
+            url: '/api/jeu/louer-exemplaire',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({
-                clientMagasinId: clientId,
-                exemplaireId: exemplaireId
+                clientMagasinId: parseInt(clientId),
+                exemplaireId: parseInt(exemplaireId)
             }),
-            success: function() {
+            success: function(response) {
                 $('#modalLouerExemplaire').modal('hide');
                 $('#successModalMessage').text("Exemplaire loué avec succès !");
                 $('#successModal').modal('show');
@@ -73,7 +81,7 @@ $(document).ready(function() {
             },
             error: function(xhr) {
                 $('#modalLouerExemplaire').modal('hide');
-                $('#errorModalMessage').text("Erreur : " + xhr.responseText);
+                $('#errorModalMessage').text("Erreur lors de la location : " + xhr.responseText);
                 $('#errorModal').modal('show');
             }
         });

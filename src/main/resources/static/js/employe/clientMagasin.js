@@ -6,9 +6,8 @@ $(document).ready(function () {
             type: 'GET',
             success: function (clients) {
                 let $select = $('#selectClientMagasin');
-                $select.empty(); // Vide le select
+                $select.empty();
                 $select.append('<option value="">-- Choisissez un client --</option>');
-                // Pour chaque client, ajouter une option
                 clients.forEach(function(client) {
                     let optionText = client.prenom + " " + client.nom + " (" + client.telephone + ")";
                     $select.append('<option value="' + client.id + '">' + optionText + '</option>');
@@ -65,7 +64,7 @@ $(document).ready(function () {
         // Récupère l'ID de l'exemplaire depuis le bouton
         const exemplaireId = $(this).data('exemplaire-id');
         // Place cette valeur dans le champ caché de la modal
-        $('#ficheExemplaireId').val(exemplaireId);
+        $('#ficheExemplaireId').val('');
         // Ouvre la modal
         $('#addClientMagasinModal').modal('show');
     });
